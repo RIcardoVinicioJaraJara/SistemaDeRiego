@@ -67,6 +67,18 @@ public class Persona implements Serializable {
     public Persona() {
     }
 
+    public Persona(Integer idPersona, String cedula, String nombre, String apellido, String departameto, Float peso, String celular, String rol, String contracenia) {
+        this.idPersona = idPersona;
+        this.cedula = cedula;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.departameto = departameto;
+        this.peso = peso;
+        this.celular = celular;
+        this.rol = rol;
+        this.contracenia = contracenia;
+    }
+    
     public Persona(Integer idPersona) {
         this.idPersona = idPersona;
     }

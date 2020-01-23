@@ -20,6 +20,7 @@ public class Login extends javax.swing.JFrame {
      * Creates new form Login
      */
     private ControladorPersona controladorPersona;
+
     public Login() {
         initComponents();
         controladorPersona = new ControladorPersona();
@@ -125,9 +126,14 @@ public class Login extends javax.swing.JFrame {
 
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         Persona per = controladorPersona.findByCedula(txtCedula.getText());
-        if(per != null){
-            JOptionPane.showMessageDialog(this, "Existe");
-        }else{
+        if (per != null) {
+            JOptionPane.showMessageDialog(this, "LOGIN CORRECTO");
+            Principal vu = new Principal();
+            String[] args = null;
+            vu.main(args);
+            this.dispose();
+            
+        } else {
             JOptionPane.showMessageDialog(this, "No existe");
         }
     }//GEN-LAST:event_jToggleButton1ActionPerformed
