@@ -18,7 +18,7 @@ USE `SistemaDeRiego` ;
 -- Table `SistemaDeRiego`.`Persona`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `SistemaDeRiego`.`Persona` (
-  `idPersona` INT NOT NULL,
+  `idPersona` INT NOT NULL AUTO_INCREMENT,
   `cedula` VARCHAR(45) NULL,
   `nombre` VARCHAR(45) NULL,
   `apellido` VARCHAR(45) NULL,
@@ -26,6 +26,7 @@ CREATE TABLE IF NOT EXISTS `SistemaDeRiego`.`Persona` (
   `peso` FLOAT NULL,
   `celular` VARCHAR(45) NULL,
   `rol` VARCHAR(45) NULL,
+  `contracenia` VARCHAR(45) NULL,
   PRIMARY KEY (`idPersona`))
 ENGINE = InnoDB;
 
@@ -34,7 +35,7 @@ ENGINE = InnoDB;
 -- Table `SistemaDeRiego`.`Riego`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `SistemaDeRiego`.`Riego` (
-  `idRiego` INT NOT NULL,
+  `idRiego` INT NOT NULL AUTO_INCREMENT,
   `temperatura` VARCHAR(45) NULL,
   `humedad` VARCHAR(45) NULL,
   `tim_inicio` VARCHAR(45) NULL,
