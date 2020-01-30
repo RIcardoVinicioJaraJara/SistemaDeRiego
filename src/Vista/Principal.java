@@ -5,6 +5,7 @@
  */
 package Vista;
 
+import Controlador.ControladorArduino;
 import java.awt.Desktop;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.io.File;
@@ -21,6 +22,7 @@ public class Principal extends javax.swing.JFrame {
 
     private Usuarios ventanaUsuarios;
     private boolean bandera = true;
+    private ControladorArduino arduino;
 
     //private coneccion coneccion;
     public Principal() {
@@ -29,6 +31,8 @@ public class Principal extends javax.swing.JFrame {
         this.setExtendedState(MAXIMIZED_BOTH);
         ventanaUsuarios = new Usuarios(btnClientes);
         escritorio.setFocusable(false);
+        arduino = new ControladorArduino();
+        arduino.conectar();
     }
 
     /**
@@ -43,11 +47,11 @@ public class Principal extends javax.swing.JFrame {
         escritorio = new javax.swing.JDesktopPane();
         btnClientes = new javax.swing.JButton();
         btnProducto = new javax.swing.JButton();
-        btnProveeedor = new javax.swing.JButton();
         btnIngreso = new javax.swing.JButton();
         btnFactura = new javax.swing.JButton();
         btnCategoria = new javax.swing.JButton();
         salir = new javax.swing.JButton();
+        btnRiego = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -62,13 +66,6 @@ public class Principal extends javax.swing.JFrame {
         btnProducto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProductoActionPerformed(evt);
-            }
-        });
-
-        btnProveeedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/provedor1.png"))); // NOI18N
-        btnProveeedor.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnProveeedorActionPerformed(evt);
             }
         });
 
@@ -101,13 +98,21 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        btnRiego.setText("RIEGO");
+        btnRiego.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnRiego.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRiegoActionPerformed(evt);
+            }
+        });
+
         escritorio.setLayer(btnClientes, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(btnProducto, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btnProveeedor, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(btnIngreso, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(btnFactura, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(btnCategoria, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(salir, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(btnRiego, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
@@ -119,14 +124,14 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(btnClientes)
                     .addComponent(btnCategoria))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
-                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnIngreso, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnProveeedor, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
+                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnIngreso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnRiego, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
                 .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(btnProducto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btnFactura, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 125, Short.MAX_VALUE))
+                .addGap(0, 127, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(salir, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -138,7 +143,7 @@ public class Principal extends javax.swing.JFrame {
                 .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnProducto)
                     .addComponent(btnClientes)
-                    .addComponent(btnProveeedor))
+                    .addComponent(btnRiego, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnIngreso)
@@ -191,15 +196,6 @@ public class Principal extends javax.swing.JFrame {
 //        }
     }//GEN-LAST:event_btnProductoActionPerformed
 
-    private void btnProveeedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProveeedorActionPerformed
-//        if (ventanaProveedor.isShowing() != true) {
-//            ventanaProveedor = new Proveedor(btnProveeedor);
-//            btnProveeedor.setEnabled(false);
-//            escritorio.add(ventanaProveedor);
-//            ventanaProveedor.setVisible(true);
-//        }
-    }//GEN-LAST:event_btnProveeedorActionPerformed
-
     private void btnIngresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresoActionPerformed
 //        if (ventanaIngresoProducto.isShowing() != true) {
 //            ventanaIngresoProducto = new IngresoProducto(btnIngreso);
@@ -233,6 +229,17 @@ public class Principal extends javax.swing.JFrame {
         vu.main(args);
         this.dispose();
     }//GEN-LAST:event_salirActionPerformed
+
+    private void btnRiegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRiegoActionPerformed
+        if (btnRiego.isSelected()) {
+            btnRiego.setText("OFF");
+            arduino.enviarDatos("1");
+        } else {
+            arduino.enviarDatos("2");
+            btnRiego.setText("ON");
+        }
+
+    }//GEN-LAST:event_btnRiegoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -279,7 +286,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton btnFactura;
     private javax.swing.JButton btnIngreso;
     private javax.swing.JButton btnProducto;
-    private javax.swing.JButton btnProveeedor;
+    private javax.swing.JToggleButton btnRiego;
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JButton salir;
     // End of variables declaration//GEN-END:variables

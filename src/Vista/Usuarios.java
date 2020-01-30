@@ -155,6 +155,12 @@ public class Usuarios extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
             public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
@@ -163,12 +169,6 @@ public class Usuarios extends javax.swing.JInternalFrame {
                 cerrando(evt);
             }
             public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
             }
         });
 
@@ -747,7 +747,7 @@ public class Usuarios extends javax.swing.JInternalFrame {
         telefono4.setText("TELEFONO:");
 
         direccion4.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
-        direccion4.setText("DIRECCION");
+        direccion4.setText("DEPARTAMENTO:");
 
         txtDepartamentoE.setEditable(false);
 
@@ -916,38 +916,39 @@ public class Usuarios extends javax.swing.JInternalFrame {
 
     private void panelesCrudClienteStateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_panelesCrudClienteStateChanged
         int x = panelesCrudCliente.getSelectedIndex();
-        if (x == 1) {
-            String sql = "select * from usuarios";
-//            try {
-//                Statement se = coneccion.createStatement();
-//                ResultSet seter = se.executeQuery(sql);
-//                modelotabla = new DefaultTableModel();
-//                Object[] datoscliente;
-//                modelotabla.addColumn("ID");
-//                modelotabla.addColumn("CEDULA");
-//                modelotabla.addColumn("NOMBRES");
-//                modelotabla.addColumn("APELLIDOS");
-//                modelotabla.addColumn("TELEFONO");
-//                modelotabla.addColumn("DIRECCION");
-//                modelotabla.addColumn("ROL");
-//                modelotabla.addColumn("CORREO");
-//                tabla.setModel(modelotabla);
-//                datoscliente = new Object[8];
-//                while (seter.next()) {
-//                    datoscliente[0] = seter.getInt(1);
-//                    datoscliente[1] = seter.getString(2);
-//                    datoscliente[2] = seter.getString(3);
-//                    datoscliente[3] = seter.getString(4);
-//                    datoscliente[4] = seter.getString(5);
-//                    datoscliente[5] = seter.getString(6);
-//                    datoscliente[6] = seter.getString(7);
-//                    datoscliente[7] = seter.getString(8);
-//                    modelotabla.addRow(datoscliente);
-//                    tabla.setModel(modelotabla);
-//                }
-//            } catch (SQLException ex) {
-//                System.out.println("Error de lectura :" + ex.getMessage());
-//            }
+        if (x
+                == 1) {
+            List<Persona> lista = controladorPersona.findAll();
+            if (!lista.isEmpty()) {
+                modelotabla = new DefaultTableModel();
+                Object[] datoscliente;
+                modelotabla.addColumn("ID");
+                modelotabla.addColumn("CEDULA");
+                modelotabla.addColumn("NOMBRES");
+                modelotabla.addColumn("APELLIDOS");
+                modelotabla.addColumn("TELEFONO");
+                modelotabla.addColumn("DEPARTAMERNTO");
+                modelotabla.addColumn("PESO");
+                modelotabla.addColumn("ROL");
+                tabla.setModel(modelotabla);
+                datoscliente = new Object[8];
+
+                for (Persona persona : lista) {
+                    datoscliente[0] = persona.getIdPersona();
+                    datoscliente[1] = persona.getCedula();
+                    datoscliente[2] = persona.getNombre();
+                    datoscliente[3] = persona.getApellido();
+                    datoscliente[4] = persona.getCelular();
+                    datoscliente[5] = persona.getDepartameto();
+                    datoscliente[6] = persona.getPeso();
+                    datoscliente[7] = persona.getRol();
+                    modelotabla.addRow(datoscliente);
+                    tabla.setModel(modelotabla);
+                }
+
+            } else {
+                JOptionPane.showMessageDialog(this, "No hay Clientes");
+            }
 
         }
     }//GEN-LAST:event_panelesCrudClienteStateChanged
@@ -958,11 +959,12 @@ public class Usuarios extends javax.swing.JInternalFrame {
             txtNombreE.setText("");
             txtApellidoE.setText("");
             txtCelularE.setText("");
-            txtDepartamentoB.setText("");
+            txtDepartamentoE.setText("");
             txtRolE.setText("");
             txtPesoE.setText("");
             JOptionPane.showMessageDialog(this, "Persona No econtrada");
             codAux = -500;
+            btnEliminar.setEnabled(false);
         } else {
             codAux = persona.getIdPersona();
             txtNombreE.setText(persona.getNombre());
@@ -971,6 +973,7 @@ public class Usuarios extends javax.swing.JInternalFrame {
             txtDepartamentoE.setText(persona.getDepartameto());
             txtRolE.setText(persona.getRol());
             txtPesoE.setText(String.valueOf(persona.getPeso()));
+            btnEliminar.setEnabled(true);
         }
     }//GEN-LAST:event_buscar3ActionPerformed
 
@@ -991,7 +994,7 @@ public class Usuarios extends javax.swing.JInternalFrame {
                 txtNombreE.setText("");
                 txtApellidoE.setText("");
                 txtCelularE.setText("");
-                txtDepartamentoB.setText("");
+                txtDepartamentoE.setText("");
                 txtRolE.setText("");
                 txtPesoE.setText("");
                 btnEliminar.setEnabled(false);
@@ -1001,7 +1004,7 @@ public class Usuarios extends javax.swing.JInternalFrame {
                 txtNombreE.setText("");
                 txtApellidoE.setText("");
                 txtCelularE.setText("");
-                txtDepartamentoB.setText("");
+                txtDepartamentoE.setText("");
                 txtRolE.setText("");
                 txtPesoE.setText("");
                 btnEliminar.setEnabled(false);
@@ -1014,7 +1017,7 @@ public class Usuarios extends javax.swing.JInternalFrame {
 
     private void buscar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscar2ActionPerformed
 
-        Persona persona = controladorPersona.findByCedula(txtCedulaB.getText());
+        Persona persona = controladorPersona.findByCedula(txtCedulaM.getText());
         if (persona == null) {
             codAux = -500;
             txtCedulaMM.setText("");
@@ -1032,8 +1035,8 @@ public class Usuarios extends javax.swing.JInternalFrame {
             txtCelularM.setEditable(false);
             txtDepartamentoM.setEditable(false);
             actulizarM.setEnabled(false);
-            txtPesoM.setEnabled(false);
-            txtContraM.setEnabled(false);
+            txtPesoM.setEditable(false);
+            txtContraM.setEditable(false);
             txtRolB.setEnabled(false);
             JOptionPane.showMessageDialog(this, "Persona No econtrada");
         } else {
@@ -1045,6 +1048,7 @@ public class Usuarios extends javax.swing.JInternalFrame {
             txtDepartamentoM.setText(persona.getDepartameto());
             comboRolM.setSelectedItem(persona.getRol());
             txtPesoM.setText(String.valueOf(persona.getPeso()));
+            txtContraM.setText(persona.getContracenia());
 
             txtCedulaMM.setEditable(true);
             txtNombreM.setEditable(true);
@@ -1052,8 +1056,8 @@ public class Usuarios extends javax.swing.JInternalFrame {
             txtCelularM.setEditable(true);
             txtDepartamentoM.setEditable(true);
             actulizarM.setEnabled(true);
-            txtPesoM.setEnabled(true);
-            txtContraM.setEnabled(true);
+            txtPesoM.setEditable(true);
+            txtContraM.setEditable(true);
             txtRolB.setEnabled(true);
         }
     }//GEN-LAST:event_buscar2ActionPerformed
@@ -1156,8 +1160,8 @@ public class Usuarios extends javax.swing.JInternalFrame {
                     txtCelularM.setEditable(false);
                     txtDepartamentoM.setEditable(false);
                     actulizarM.setEnabled(false);
-                    txtPesoM.setEnabled(false);
-                    txtContraM.setEnabled(false);
+                    txtPesoM.setEditable(false);
+                    txtContraM.setEditable(false);
                     txtRolB.setEnabled(false);
                     JOptionPane.showMessageDialog(this, "Persona ACTUALIZADA");
                 } catch (Exception e) {

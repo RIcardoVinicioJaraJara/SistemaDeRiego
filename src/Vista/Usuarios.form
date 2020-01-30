@@ -1273,7 +1273,7 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="14" style="3"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="DIRECCION"/>
+                    <Property name="text" type="java.lang.String" value="DEPARTAMENTO:"/>
                   </Properties>
                 </Component>
                 <Component class="javax.swing.JTextField" name="txtDepartamentoE">
