@@ -10,6 +10,9 @@ import java.awt.Desktop;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -23,16 +26,19 @@ public class Principal extends javax.swing.JFrame {
     private Usuarios ventanaUsuarios;
     private boolean bandera = true;
     private ControladorArduino arduino;
+    private Programar ventanaProgramar;
 
     //private coneccion coneccion;
     public Principal() {
         int n;
         initComponents();
+        fondoImg.setSize(MAXIMIZED_BOTH, MAXIMIZED_BOTH);
         this.setExtendedState(MAXIMIZED_BOTH);
         ventanaUsuarios = new Usuarios(btnClientes);
+        ventanaProgramar = new Programar(btnProgramar);
         escritorio.setFocusable(false);
-        arduino = new ControladorArduino();
-        arduino.conectar();
+       // arduino = new ControladorArduino();
+      //  arduino.conectar();
     }
 
     /**
@@ -46,49 +52,24 @@ public class Principal extends javax.swing.JFrame {
 
         escritorio = new javax.swing.JDesktopPane();
         btnClientes = new javax.swing.JButton();
-        btnProducto = new javax.swing.JButton();
-        btnIngreso = new javax.swing.JButton();
-        btnFactura = new javax.swing.JButton();
-        btnCategoria = new javax.swing.JButton();
         salir = new javax.swing.JButton();
         btnRiego = new javax.swing.JToggleButton();
+        btnProgramar = new javax.swing.JButton();
+        btnProgramar1 = new javax.swing.JButton();
+        fondoImg = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        escritorio.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
         btnClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/clientes.png"))); // NOI18N
+        btnClientes.setText("PERSONAS");
         btnClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnClientesActionPerformed(evt);
             }
         });
-
-        btnProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/producto1.png"))); // NOI18N
-        btnProducto.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnProductoActionPerformed(evt);
-            }
-        });
-
-        btnIngreso.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/pedidos.png"))); // NOI18N
-        btnIngreso.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnIngresoActionPerformed(evt);
-            }
-        });
-
-        btnFactura.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/factura.png"))); // NOI18N
-        btnFactura.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnFacturaActionPerformed(evt);
-            }
-        });
-
-        btnCategoria.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/categoria1.png"))); // NOI18N
-        btnCategoria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCategoriaActionPerformed(evt);
-            }
-        });
+        escritorio.add(btnClientes, new org.netbeans.lib.awtextra.AbsoluteConstraints(54, 41, -1, -1));
 
         salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/login.png"))); // NOI18N
         salir.setText("LOGIN");
@@ -97,6 +78,7 @@ public class Principal extends javax.swing.JFrame {
                 salirActionPerformed(evt);
             }
         });
+        escritorio.add(salir, new org.netbeans.lib.awtextra.AbsoluteConstraints(1070, 530, 146, -1));
 
         btnRiego.setText("RIEGO");
         btnRiego.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
@@ -105,78 +87,73 @@ public class Principal extends javax.swing.JFrame {
                 btnRiegoActionPerformed(evt);
             }
         });
+        escritorio.add(btnRiego, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 50, 153, 124));
 
-        escritorio.setLayer(btnClientes, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btnProducto, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btnIngreso, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btnFactura, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btnCategoria, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(salir, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btnRiego, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        btnProgramar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/kardex.png"))); // NOI18N
+        btnProgramar.setText("PROGRAMAR");
+        btnProgramar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProgramarActionPerformed(evt);
+            }
+        });
+        escritorio.add(btnProgramar, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 41, -1, -1));
 
-        javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
-        escritorio.setLayout(escritorioLayout);
-        escritorioLayout.setHorizontalGroup(
-            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(escritorioLayout.createSequentialGroup()
-                .addContainerGap(130, Short.MAX_VALUE)
-                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnClientes)
-                    .addComponent(btnCategoria))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
-                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnIngreso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnRiego, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 138, Short.MAX_VALUE)
-                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(btnProducto, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnFactura, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 127, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(salir, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-        escritorioLayout.setVerticalGroup(
-            escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(escritorioLayout.createSequentialGroup()
-                .addGap(100, 100, 100)
-                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnProducto)
-                    .addComponent(btnClientes)
-                    .addComponent(btnRiego, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnIngreso)
-                    .addComponent(btnFactura)
-                    .addComponent(btnCategoria))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(salir))
-        );
+        btnProgramar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/kardex.png"))); // NOI18N
+        btnProgramar1.setText("DATOS RIEGO");
+        btnProgramar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProgramar1ActionPerformed(evt);
+            }
+        });
+        escritorio.add(btnProgramar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, -1));
+
+        fondoImg.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/fondo.jpg"))); // NOI18N
+        fondoImg.setText("jLabel2");
+        escritorio.add(fondoImg, new org.netbeans.lib.awtextra.AbsoluteConstraints(-30, -10, 1240, 600));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(layout.createSequentialGroup()
+                .addGap(33, 33, 33)
                 .addComponent(escritorio)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(escritorio)
-                .addGap(31, 31, 31))
+                .addComponent(escritorio, javax.swing.GroupLayout.DEFAULT_SIZE, 589, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    @Override
-    protected void finalize() throws Throwable {
-        System.out.println("finalzado");
-    }
+    private void btnProgramar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProgramar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnProgramar1ActionPerformed
+
+    private void btnProgramarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProgramarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnProgramarActionPerformed
+
+    private void btnRiegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRiegoActionPerformed
+        if (btnRiego.isSelected()) {
+            btnRiego.setText("OFF");
+            arduino.enviarDatos("1");
+        } else {
+            arduino.enviarDatos("2");
+            btnRiego.setText("ON");
+        }
+    }//GEN-LAST:event_btnRiegoActionPerformed
+
+    private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
+        Login vu = new Login();
+        String[] args = null;
+        vu.main(args);
+        this.dispose();
+    }//GEN-LAST:event_salirActionPerformed
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
         if (ventanaUsuarios.isShowing() != true) {
@@ -187,59 +164,10 @@ public class Principal extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnClientesActionPerformed
 
-    private void btnProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProductoActionPerformed
-//        if (ventanaProducto.isShowing() != true) {
-//            ventanaProducto = new Producto(btnProducto);
-//            btnProducto.setEnabled(false);
-//            escritorio.add(ventanaProducto);
-//            ventanaProducto.setVisible(true);
-//        }
-    }//GEN-LAST:event_btnProductoActionPerformed
-
-    private void btnIngresoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresoActionPerformed
-//        if (ventanaIngresoProducto.isShowing() != true) {
-//            ventanaIngresoProducto = new IngresoProducto(btnIngreso);
-//            ventanaIngresoProducto.setEnabled(false);
-//            escritorio.add(ventanaIngresoProducto);
-//            ventanaIngresoProducto.setVisible(true);
-//        }
-    }//GEN-LAST:event_btnIngresoActionPerformed
-
-    private void btnFacturaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFacturaActionPerformed
-//        if (ventanaFactura.isShowing() != true) {
-//            ventanaFactura = new Factura(btnFactura);
-//            btnFactura.setEnabled(false);
-//            escritorio.add(ventanaFactura);
-//            ventanaFactura.setVisible(true);
-//        }
-    }//GEN-LAST:event_btnFacturaActionPerformed
-
-    private void btnCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCategoriaActionPerformed
-//        if (ventanaCategoria.isShowing() != true) {
-//            ventanaCategoria = new Categoria(btnCategoria);
-//            btnCategoria.setEnabled(false);
-//            escritorio.add(ventanaCategoria);
-//            ventanaCategoria.setVisible(true);
-//        }
-    }//GEN-LAST:event_btnCategoriaActionPerformed
-
-    private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
-        Login vu = new Login();
-        String[] args = null;
-        vu.main(args);
-        this.dispose();
-    }//GEN-LAST:event_salirActionPerformed
-
-    private void btnRiegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRiegoActionPerformed
-        if (btnRiego.isSelected()) {
-            btnRiego.setText("OFF");
-            arduino.enviarDatos("1");
-        } else {
-            arduino.enviarDatos("2");
-            btnRiego.setText("ON");
-        }
-
-    }//GEN-LAST:event_btnRiegoActionPerformed
+    @Override
+    protected void finalize() throws Throwable {
+        System.out.println("finalzado");
+    }
 
     /**
      * @param args the command line arguments
@@ -281,13 +209,12 @@ public class Principal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnCategoria;
     private javax.swing.JButton btnClientes;
-    private javax.swing.JButton btnFactura;
-    private javax.swing.JButton btnIngreso;
-    private javax.swing.JButton btnProducto;
+    private javax.swing.JButton btnProgramar;
+    private javax.swing.JButton btnProgramar1;
     private javax.swing.JToggleButton btnRiego;
     private javax.swing.JDesktopPane escritorio;
+    private javax.swing.JLabel fondoImg;
     private javax.swing.JButton salir;
     // End of variables declaration//GEN-END:variables
 
