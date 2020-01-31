@@ -21,19 +21,19 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author VINICIO
  */
-public class Principal extends javax.swing.JFrame {
+public class PrincipalUsuario extends javax.swing.JFrame {
 
-    private Usuarios ventanaUsuarios;
+    private UsuariosDatos ventanaUsuarios;
     private boolean bandera = true;
     private ControladorArduino arduino;
     private Programar ventanaProgramar;
 
     //private coneccion coneccion;
-    public Principal() {
+    public PrincipalUsuario() {
         int n;
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
-        ventanaUsuarios = new Usuarios(btnClientes);
+        ventanaUsuarios = new UsuariosDatos(btnClientes);
         ventanaProgramar = new Programar(btnProgramar);
         escritorio.setFocusable(false);
        // arduino = new ControladorArduino();
@@ -52,14 +52,11 @@ public class Principal extends javax.swing.JFrame {
         escritorio = new javax.swing.JDesktopPane();
         btnClientes = new javax.swing.JButton();
         salir = new javax.swing.JButton();
-        btnRiego = new javax.swing.JToggleButton();
         btnProgramar = new javax.swing.JButton();
-        btnProgramar1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        btnClientes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/clientes.png"))); // NOI18N
-        btnClientes.setText("PERSONAS");
+        btnClientes.setText("MIS DATOS");
         btnClientes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnClientesActionPerformed(evt);
@@ -74,27 +71,10 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        btnRiego.setText("RIEGO");
-        btnRiego.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        btnRiego.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnRiegoActionPerformed(evt);
-            }
-        });
-
-        btnProgramar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/kardex.png"))); // NOI18N
-        btnProgramar.setText("PROGRAMAR");
+        btnProgramar.setText("MI RIEGO");
         btnProgramar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProgramarActionPerformed(evt);
-            }
-        });
-
-        btnProgramar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/kardex.png"))); // NOI18N
-        btnProgramar1.setText("DATOS RIEGO");
-        btnProgramar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnProgramar1ActionPerformed(evt);
             }
         });
 
@@ -107,34 +87,28 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(salir, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(escritorioLayout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnClientes)
-                    .addComponent(btnProgramar1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnRiego, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(154, 154, 154)
-                .addComponent(btnProgramar)
-                .addGap(166, 166, 166))
+                .addGap(86, 86, 86)
+                .addComponent(btnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(201, 201, 201)
+                .addComponent(btnProgramar, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(escritorioLayout.createSequentialGroup()
-                .addGap(133, 133, 133)
-                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnProgramar)
-                    .addComponent(btnRiego, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnClientes))
-                .addGap(94, 94, 94)
-                .addComponent(btnProgramar1)
-                .addGap(45, 45, 45)
+                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(escritorioLayout.createSequentialGroup()
+                        .addGap(133, 133, 133)
+                        .addComponent(btnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
+                        .addGap(141, 141, 141)
+                        .addComponent(btnProgramar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(260, 260, 260)
                 .addComponent(salir))
         );
         escritorio.setLayer(btnClientes, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(salir, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btnRiego, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(btnProgramar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btnProgramar1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -155,15 +129,9 @@ public class Principal extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnRiegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRiegoActionPerformed
-        if (btnRiego.isSelected()) {
-            btnRiego.setText("OFF");
-            arduino.enviarDatos("1");
-        } else {
-            arduino.enviarDatos("2");
-            btnRiego.setText("ON");
-        }
-    }//GEN-LAST:event_btnRiegoActionPerformed
+    private void btnProgramarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProgramarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnProgramarActionPerformed
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
         Login vu = new Login();
@@ -174,20 +142,12 @@ public class Principal extends javax.swing.JFrame {
 
     private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
         if (ventanaUsuarios.isShowing() != true) {
-            ventanaUsuarios = new Usuarios(btnClientes);
+            ventanaUsuarios = new UsuariosDatos(btnClientes);
             btnClientes.setEnabled(false);
             escritorio.add(ventanaUsuarios);
             ventanaUsuarios.setVisible(true);
         }
     }//GEN-LAST:event_btnClientesActionPerformed
-
-    private void btnProgramarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProgramarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnProgramarActionPerformed
-
-    private void btnProgramar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProgramar1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnProgramar1ActionPerformed
 
     @Override
     protected void finalize() throws Throwable {
@@ -211,14 +171,18 @@ public class Principal extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PrincipalUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PrincipalUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PrincipalUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Principal.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PrincipalUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -228,7 +192,7 @@ public class Principal extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
 
-                new Principal().setVisible(true);
+                new PrincipalUsuario().setVisible(true);
             }
         });
     }
@@ -236,8 +200,6 @@ public class Principal extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClientes;
     private javax.swing.JButton btnProgramar;
-    private javax.swing.JButton btnProgramar1;
-    private javax.swing.JToggleButton btnRiego;
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JButton salir;
     // End of variables declaration//GEN-END:variables

@@ -34,7 +34,7 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author Fanny
  */
-public class Riego extends javax.swing.JInternalFrame {
+public class RiegoUsuario extends javax.swing.JInternalFrame {
 
     private JButton b;
     private DefaultTableModel modelo;
@@ -44,7 +44,7 @@ public class Riego extends javax.swing.JInternalFrame {
 
     ControladorPersona controladorPersona;
 
-    public Riego(JButton b) {
+    public RiegoUsuario(JButton b) {
         initComponents();
         this.b = b;
         cabecera = null;
