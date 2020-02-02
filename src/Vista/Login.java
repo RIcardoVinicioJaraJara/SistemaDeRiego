@@ -127,12 +127,19 @@ public class Login extends javax.swing.JFrame {
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         Persona per = controladorPersona.findByCedula(txtCedula.getText());
         if (per != null) {
-            JOptionPane.showMessageDialog(this, "LOGIN CORRECTO");
-            Principal vu = new Principal();
-            String[] args = null;
-            vu.main(args);
-            this.dispose();
-            
+            if (per.getRol().equals("ADMIN")) {
+                JOptionPane.showMessageDialog(this, "INGRESA COMO ADMIN");
+                Principal vu = new Principal();
+                String[] args = null;
+                vu.main(args);
+                this.dispose();
+            } else {
+                JOptionPane.showMessageDialog(this, "INGRESA COMO USER");
+                PrincipalUsuario vu = new PrincipalUsuario();
+                String[] args = null;
+                vu.main(args);
+            }
+
         } else {
             JOptionPane.showMessageDialog(this, "No existe");
         }

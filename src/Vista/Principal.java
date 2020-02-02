@@ -36,8 +36,8 @@ public class Principal extends javax.swing.JFrame {
         ventanaUsuarios = new Usuarios(btnClientes);
         ventanaProgramar = new Programar(btnProgramar);
         escritorio.setFocusable(false);
-       // arduino = new ControladorArduino();
-      //  arduino.conectar();
+        arduino = new ControladorArduino();
+        arduino.conectar();
     }
 
     /**
@@ -55,6 +55,7 @@ public class Principal extends javax.swing.JFrame {
         btnRiego = new javax.swing.JToggleButton();
         btnProgramar = new javax.swing.JButton();
         btnProgramar1 = new javax.swing.JButton();
+        btnProgramar2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -90,11 +91,19 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        btnProgramar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/kardex.png"))); // NOI18N
-        btnProgramar1.setText("DATOS RIEGO");
+        btnProgramar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/produ_1.png"))); // NOI18N
+        btnProgramar1.setText("LISTA REIGOS");
         btnProgramar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnProgramar1ActionPerformed(evt);
+            }
+        });
+
+        btnProgramar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/kardex.png"))); // NOI18N
+        btnProgramar2.setText("DATOS RIEGO");
+        btnProgramar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnProgramar2ActionPerformed(evt);
             }
         });
 
@@ -107,15 +116,22 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(salir, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(escritorioLayout.createSequentialGroup()
-                .addGap(70, 70, 70)
-                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(btnClientes)
-                    .addComponent(btnProgramar1))
+                .addGap(86, 86, 86)
+                .addComponent(btnClientes)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnRiego, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(154, 154, 154)
                 .addComponent(btnProgramar)
                 .addGap(166, 166, 166))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnProgramar1)
+                .addGap(326, 326, 326))
+            .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(escritorioLayout.createSequentialGroup()
+                    .addGap(163, 163, 163)
+                    .addComponent(btnProgramar2)
+                    .addContainerGap(828, Short.MAX_VALUE)))
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,16 +141,22 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(btnProgramar)
                     .addComponent(btnRiego, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnClientes))
-                .addGap(94, 94, 94)
+                .addGap(76, 76, 76)
                 .addComponent(btnProgramar1)
-                .addGap(45, 45, 45)
+                .addGap(63, 63, 63)
                 .addComponent(salir))
+            .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
+                    .addContainerGap(328, Short.MAX_VALUE)
+                    .addComponent(btnProgramar2)
+                    .addGap(132, 132, 132)))
         );
         escritorio.setLayer(btnClientes, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(salir, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(btnRiego, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(btnProgramar, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(btnProgramar1, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(btnProgramar2, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -189,6 +211,10 @@ public class Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnProgramar1ActionPerformed
 
+    private void btnProgramar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProgramar2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnProgramar2ActionPerformed
+
     @Override
     protected void finalize() throws Throwable {
         System.out.println("finalzado");
@@ -237,6 +263,7 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton btnClientes;
     private javax.swing.JButton btnProgramar;
     private javax.swing.JButton btnProgramar1;
+    private javax.swing.JButton btnProgramar2;
     private javax.swing.JToggleButton btnRiego;
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JButton salir;

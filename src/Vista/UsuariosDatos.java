@@ -60,9 +60,6 @@ public class UsuariosDatos extends javax.swing.JInternalFrame {
         jMenuItem1 = new javax.swing.JMenuItem();
         panelesCrudCliente = new javax.swing.JTabbedPane();
         jPanel8 = new javax.swing.JPanel();
-        cedula3 = new javax.swing.JLabel();
-        txtCedulaM = new javax.swing.JTextField();
-        modificarcliente = new javax.swing.JLabel();
         jPanel11 = new javax.swing.JPanel();
         nombre3 = new javax.swing.JLabel();
         apellido3 = new javax.swing.JLabel();
@@ -78,7 +75,6 @@ public class UsuariosDatos extends javax.swing.JInternalFrame {
         nombre5 = new javax.swing.JLabel();
         direcion9 = new javax.swing.JLabel();
         txtPesoM = new javax.swing.JTextField();
-        buscar2 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         nombre4 = new javax.swing.JLabel();
@@ -122,21 +118,6 @@ public class UsuariosDatos extends javax.swing.JInternalFrame {
         });
 
         jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        cedula3.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
-        cedula3.setText("CEDULA: ");
-        jPanel8.add(cedula3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 158, -1));
-
-        txtCedulaM.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtCedulaMKeyTyped(evt);
-            }
-        });
-        jPanel8.add(txtCedulaM, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 130, -1));
-
-        modificarcliente.setFont(new java.awt.Font("Tahoma", 3, 18)); // NOI18N
-        modificarcliente.setText("MODIFICAR CLIENTE");
-        jPanel8.add(modificarcliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 253, -1));
 
         jPanel11.setEnabled(false);
 
@@ -291,15 +272,6 @@ public class UsuariosDatos extends javax.swing.JInternalFrame {
         );
 
         jPanel8.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, -1, 350));
-
-        buscar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar.png"))); // NOI18N
-        buscar2.setText("BUSCAR");
-        buscar2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscar2ActionPerformed(evt);
-            }
-        });
-        jPanel8.add(buscar2, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 20, -1, -1));
 
         panelesCrudCliente.addTab("MODIFICAR", jPanel8);
 
@@ -464,53 +436,6 @@ public class UsuariosDatos extends javax.swing.JInternalFrame {
 //        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    private void buscar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscar2ActionPerformed
-//
-//        Persona persona = controladorPersona.findByCedula(txtCedulaM.getText());
-//        if (persona == null) {
-//            codAux = -500;
-//            txtCedulaMM.setText("");
-//            txtNombreM.setText("");
-//            txtApellidoM.setText("");
-//            txtCelularM.setText("");
-//            txtDepartamentoM.setText("");
-//            txtPesoM.setText("");
-//            txtContraM.setText("");
-//            comboRolM.setSelectedIndex(0);
-//
-//            txtCedulaMM.setEditable(false);
-//            txtNombreM.setEditable(false);
-//            txtApellidoM.setEditable(false);
-//            txtCelularM.setEditable(false);
-//            txtDepartamentoM.setEditable(false);
-//            actulizarM.setEnabled(false);
-//            txtPesoM.setEditable(false);
-//            txtContraM.setEditable(false);
-//            txtRolB.setEnabled(false);
-//            JOptionPane.showMessageDialog(this, "Persona No econtrada");
-//        } else {
-//            codAux = persona.getIdPersona();
-//            txtCedulaMM.setText(persona.getCedula());
-//            txtNombreM.setText(persona.getNombre());
-//            txtApellidoM.setText(persona.getApellido());
-//            txtCelularM.setText(persona.getCelular());
-//            txtDepartamentoM.setText(persona.getDepartameto());
-//            comboRolM.setSelectedItem(persona.getRol());
-//            txtPesoM.setText(String.valueOf(persona.getPeso()));
-//            txtContraM.setText(persona.getContracenia());
-//
-//            txtCedulaMM.setEditable(true);
-//            txtNombreM.setEditable(true);
-//            txtApellidoM.setEditable(true);
-//            txtCelularM.setEditable(true);
-//            txtDepartamentoM.setEditable(true);
-//            actulizarM.setEnabled(true);
-//            txtPesoM.setEditable(true);
-//            txtContraM.setEditable(true);
-//            txtRolB.setEnabled(true);
-//        }
-    }//GEN-LAST:event_buscar2ActionPerformed
-
     private void txtPesoMKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesoMKeyTyped
 
     }//GEN-LAST:event_txtPesoMKeyTyped
@@ -626,21 +551,11 @@ public class UsuariosDatos extends javax.swing.JInternalFrame {
 //        }
     }//GEN-LAST:event_actulizarMActionPerformed
 
-    private void txtCedulaMKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCedulaMKeyTyped
-        if (evt.getKeyCode() != KeyEvent.VK_DELETE) {
-            if (evt.getKeyChar() < '0' || evt.getKeyChar() > '9') {
-                evt.consume();
-            }
-        }
-    }//GEN-LAST:event_txtCedulaMKeyTyped
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton actulizarM;
     private javax.swing.JLabel apellido3;
     private javax.swing.JLabel apellido4;
     private javax.swing.JButton btnEliminar;
-    private javax.swing.JButton buscar2;
-    private javax.swing.JLabel cedula3;
     private javax.swing.JLabel controladorCliente;
     private javax.swing.JLabel direccion3;
     private javax.swing.JLabel direcion7;
@@ -653,7 +568,6 @@ public class UsuariosDatos extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel8;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JLabel modificarcliente;
     private javax.swing.JLabel nombre3;
     private javax.swing.JLabel nombre4;
     private javax.swing.JLabel nombre5;
@@ -661,7 +575,6 @@ public class UsuariosDatos extends javax.swing.JInternalFrame {
     private javax.swing.JLabel telefono3;
     private javax.swing.JTextField txtApellidoE;
     private javax.swing.JTextField txtApellidoM;
-    private javax.swing.JTextField txtCedulaM;
     private javax.swing.JTextField txtCedulaMM;
     private javax.swing.JTextField txtCelularE;
     private javax.swing.JTextField txtCelularM;

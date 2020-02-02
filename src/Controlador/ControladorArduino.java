@@ -15,7 +15,7 @@ import panamahitek.PanamaHitek_Arduino;
 
 public final class ControladorArduino {
 
-    private final String puerto = "COM8";
+    private final String puerto = "COM3";
     PanamaHitek_Arduino Arduino = new PanamaHitek_Arduino();
 
     public ControladorArduino() {
