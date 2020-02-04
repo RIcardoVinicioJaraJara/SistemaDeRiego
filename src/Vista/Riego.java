@@ -44,6 +44,9 @@ public class Riego extends javax.swing.JInternalFrame {
 
     ControladorPersona controladorPersona;
 
+    public Riego() {
+    }
+    
     public Riego(JButton b) {
         initComponents();
         this.b = b;

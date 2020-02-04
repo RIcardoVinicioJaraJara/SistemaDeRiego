@@ -5,6 +5,9 @@
  */
 package Controlador;
 
+import Modelo.Riego;
+import gnu.io.SerialPortEvent;
+import gnu.io.SerialPortEventListener;
 import panamahitek.PanamaHitek_Arduino;
 
 /**
@@ -14,11 +17,25 @@ import panamahitek.PanamaHitek_Arduino;
 
 
 public final class ControladorArduino {
-
+    private Riego riego;
     private final String puerto = "COM3";
-    PanamaHitek_Arduino Arduino = new PanamaHitek_Arduino();
+    private static PanamaHitek_Arduino Arduino = new PanamaHitek_Arduino();
+    private static final SerialPortEventListener listener = new SerialPortEventListener() {
+        @Override
+        public void serialEvent(SerialPortEvent spe) {
+            try {
+                if (Arduino.isMessageAvailable()) {
+                    //Se imprime el mensaje recibido en la consola
+                    System.out.println(Arduino.printMessage());
+                }
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
+            }
 
+        }
+    };
     public ControladorArduino() {
+        riego = new Riego();
     }
 
     public boolean conectar() {

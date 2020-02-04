@@ -16,6 +16,7 @@ import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import sun.reflect.generics.visitor.Reifier;
 
 /**
  *
@@ -27,6 +28,7 @@ public class Principal extends javax.swing.JFrame {
     private boolean bandera = true;
     private ControladorArduino arduino;
     private Programar ventanaProgramar;
+    private Riego ventanaRiego;
 
     //private coneccion coneccion;
     public Principal() {
@@ -35,6 +37,7 @@ public class Principal extends javax.swing.JFrame {
         this.setExtendedState(MAXIMIZED_BOTH);
         ventanaUsuarios = new Usuarios(btnClientes);
         ventanaProgramar = new Programar(btnProgramar);
+        ventanaRiego = new Riego(btnDRiegos);
         escritorio.setFocusable(false);
         arduino = new ControladorArduino();
         arduino.conectar();
@@ -54,8 +57,8 @@ public class Principal extends javax.swing.JFrame {
         salir = new javax.swing.JButton();
         btnRiego = new javax.swing.JToggleButton();
         btnProgramar = new javax.swing.JButton();
-        btnProgramar1 = new javax.swing.JButton();
-        btnProgramar2 = new javax.swing.JButton();
+        btnDatosRiego = new javax.swing.JButton();
+        btnDRiegos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -91,19 +94,19 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
-        btnProgramar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/produ_1.png"))); // NOI18N
-        btnProgramar1.setText("LISTA REIGOS");
-        btnProgramar1.addActionListener(new java.awt.event.ActionListener() {
+        btnDatosRiego.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/produ_1.png"))); // NOI18N
+        btnDatosRiego.setText("LISTA REIGOS");
+        btnDatosRiego.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnProgramar1ActionPerformed(evt);
+                btnDatosRiegoActionPerformed(evt);
             }
         });
 
-        btnProgramar2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/kardex.png"))); // NOI18N
-        btnProgramar2.setText("DATOS RIEGO");
-        btnProgramar2.addActionListener(new java.awt.event.ActionListener() {
+        btnDRiegos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/kardex.png"))); // NOI18N
+        btnDRiegos.setText("DATOS RIEGO");
+        btnDRiegos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnProgramar2ActionPerformed(evt);
+                btnDRiegosActionPerformed(evt);
             }
         });
 
@@ -125,12 +128,12 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(166, 166, 166))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnProgramar1)
+                .addComponent(btnDatosRiego)
                 .addGap(326, 326, 326))
             .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(escritorioLayout.createSequentialGroup()
                     .addGap(163, 163, 163)
-                    .addComponent(btnProgramar2)
+                    .addComponent(btnDRiegos)
                     .addContainerGap(828, Short.MAX_VALUE)))
         );
         escritorioLayout.setVerticalGroup(
@@ -142,21 +145,21 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(btnRiego, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnClientes))
                 .addGap(76, 76, 76)
-                .addComponent(btnProgramar1)
+                .addComponent(btnDatosRiego)
                 .addGap(63, 63, 63)
                 .addComponent(salir))
             .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
                     .addContainerGap(328, Short.MAX_VALUE)
-                    .addComponent(btnProgramar2)
+                    .addComponent(btnDRiegos)
                     .addGap(132, 132, 132)))
         );
         escritorio.setLayer(btnClientes, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(salir, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(btnRiego, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(btnProgramar, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btnProgramar1, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btnProgramar2, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(btnDatosRiego, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(btnDRiegos, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -180,7 +183,7 @@ public class Principal extends javax.swing.JFrame {
     private void btnRiegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRiegoActionPerformed
         if (btnRiego.isSelected()) {
             btnRiego.setText("OFF");
-            arduino.enviarDatos("1");
+            arduino.enviarDatos("RELE");
         } else {
             arduino.enviarDatos("2");
             btnRiego.setText("ON");
@@ -204,16 +207,26 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnClientesActionPerformed
 
     private void btnProgramarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProgramarActionPerformed
-        // TODO add your handling code here:
+        if (ventanaProgramar.isShowing() != true) {
+            ventanaProgramar = new Programar(btnProgramar);
+            btnProgramar.setEnabled(false);
+            escritorio.add(ventanaProgramar);
+            ventanaProgramar.setVisible(true);
+        }
     }//GEN-LAST:event_btnProgramarActionPerformed
 
-    private void btnProgramar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProgramar1ActionPerformed
+    private void btnDatosRiegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatosRiegoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_btnProgramar1ActionPerformed
+    }//GEN-LAST:event_btnDatosRiegoActionPerformed
 
-    private void btnProgramar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProgramar2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnProgramar2ActionPerformed
+    private void btnDRiegosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDRiegosActionPerformed
+        if (ventanaRiego.isShowing() != true) {
+            ventanaRiego = new Riego(btnDRiegos);
+            btnDRiegos.setEnabled(false);
+            escritorio.add(ventanaRiego);
+            ventanaRiego.setVisible(true);
+        }
+    }//GEN-LAST:event_btnDRiegosActionPerformed
 
     @Override
     protected void finalize() throws Throwable {
@@ -261,9 +274,9 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClientes;
+    private javax.swing.JButton btnDRiegos;
+    private javax.swing.JButton btnDatosRiego;
     private javax.swing.JButton btnProgramar;
-    private javax.swing.JButton btnProgramar1;
-    private javax.swing.JButton btnProgramar2;
     private javax.swing.JToggleButton btnRiego;
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JButton salir;

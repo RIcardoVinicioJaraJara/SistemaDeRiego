@@ -61,13 +61,13 @@
               </Group>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="btnProgramar1" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnDatosRiego" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="326" max="-2" attributes="0"/>
               </Group>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="163" max="-2" attributes="0"/>
-                      <Component id="btnProgramar2" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnDRiegos" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="828" max="32767" attributes="0"/>
                   </Group>
               </Group>
@@ -83,14 +83,14 @@
                       <Component id="btnClientes" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
-                  <Component id="btnProgramar1" min="-2" max="-2" attributes="0"/>
+                  <Component id="btnDatosRiego" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
                   <Component id="salir" min="-2" max="-2" attributes="0"/>
               </Group>
               <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace pref="328" max="32767" attributes="0"/>
-                      <Component id="btnProgramar2" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnDRiegos" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="132" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -140,7 +140,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProgramarActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnProgramar1">
+        <Component class="javax.swing.JButton" name="btnDatosRiego">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/imagenes/produ_1.png"/>
@@ -148,10 +148,10 @@
             <Property name="text" type="java.lang.String" value="LISTA REIGOS"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProgramar1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDatosRiegoActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="btnProgramar2">
+        <Component class="javax.swing.JButton" name="btnDRiegos">
           <Properties>
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/imagenes/kardex.png"/>
@@ -159,7 +159,7 @@
             <Property name="text" type="java.lang.String" value="DATOS RIEGO"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnProgramar2ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDRiegosActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

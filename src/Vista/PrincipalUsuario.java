@@ -27,6 +27,7 @@ public class PrincipalUsuario extends javax.swing.JFrame {
     private boolean bandera = true;
     private ControladorArduino arduino;
     private Programar ventanaProgramar;
+    private RiegoUsuario ventanaRiengoUsr;
 
     //private coneccion coneccion;
     public PrincipalUsuario() {
@@ -34,7 +35,7 @@ public class PrincipalUsuario extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
         ventanaUsuarios = new UsuariosDatos(btnClientes);
-        ventanaProgramar = new Programar(btnProgramar);
+        ventanaRiengoUsr = new RiegoUsuario(btnMiRiego);
         escritorio.setFocusable(false);
        // arduino = new ControladorArduino();
       //  arduino.conectar();
@@ -52,7 +53,7 @@ public class PrincipalUsuario extends javax.swing.JFrame {
         escritorio = new javax.swing.JDesktopPane();
         btnClientes = new javax.swing.JButton();
         salir = new javax.swing.JButton();
-        btnProgramar = new javax.swing.JButton();
+        btnMiRiego = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -71,10 +72,10 @@ public class PrincipalUsuario extends javax.swing.JFrame {
             }
         });
 
-        btnProgramar.setText("MI RIEGO");
-        btnProgramar.addActionListener(new java.awt.event.ActionListener() {
+        btnMiRiego.setText("MI RIEGO");
+        btnMiRiego.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnProgramarActionPerformed(evt);
+                btnMiRiegoActionPerformed(evt);
             }
         });
 
@@ -90,7 +91,7 @@ public class PrincipalUsuario extends javax.swing.JFrame {
                 .addGap(86, 86, 86)
                 .addComponent(btnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(201, 201, 201)
-                .addComponent(btnProgramar, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btnMiRiego, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         escritorioLayout.setVerticalGroup(
@@ -102,13 +103,13 @@ public class PrincipalUsuario extends javax.swing.JFrame {
                         .addComponent(btnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
                         .addGap(141, 141, 141)
-                        .addComponent(btnProgramar, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnMiRiego, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(260, 260, 260)
                 .addComponent(salir))
         );
         escritorio.setLayer(btnClientes, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(salir, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btnProgramar, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(btnMiRiego, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -129,9 +130,14 @@ public class PrincipalUsuario extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btnProgramarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProgramarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnProgramarActionPerformed
+    private void btnMiRiegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMiRiegoActionPerformed
+        if (ventanaRiengoUsr.isShowing() != true) {
+            ventanaRiengoUsr = new RiegoUsuario(btnMiRiego);
+            btnMiRiego.setEnabled(false);
+            escritorio.add(ventanaRiengoUsr);
+            ventanaRiengoUsr.setVisible(true);
+        }
+    }//GEN-LAST:event_btnMiRiegoActionPerformed
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
         Login vu = new Login();
@@ -199,7 +205,7 @@ public class PrincipalUsuario extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnClientes;
-    private javax.swing.JButton btnProgramar;
+    private javax.swing.JButton btnMiRiego;
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JButton salir;
     // End of variables declaration//GEN-END:variables
