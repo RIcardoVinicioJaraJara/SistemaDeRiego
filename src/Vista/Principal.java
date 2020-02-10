@@ -6,6 +6,8 @@
 package Vista;
 
 import Controlador.ControladorArduino;
+import Controlador.ControladorPersona;
+import Modelo.Persona;
 import java.awt.Desktop;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.io.File;
@@ -29,17 +31,20 @@ public class Principal extends javax.swing.JFrame {
     private ControladorArduino arduino;
     private Programar ventanaProgramar;
     private Riego ventanaRiego;
+    private ControladorPersona controladorPersona;
 
     //private coneccion coneccion;
     public Principal() {
         int n;
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
+        controladorPersona = new ControladorPersona();
         ventanaUsuarios = new Usuarios(btnClientes);
         ventanaProgramar = new Programar(btnProgramar);
         ventanaRiego = new Riego(btnDRiegos);
         escritorio.setFocusable(false);
-        arduino = new ControladorArduino();
+        Persona p = controladorPersona.findByCedula("0105452171");
+        arduino = new ControladorArduino(p);
         arduino.conectar();
     }
 
@@ -183,7 +188,7 @@ public class Principal extends javax.swing.JFrame {
     private void btnRiegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRiegoActionPerformed
         if (btnRiego.isSelected()) {
             btnRiego.setText("OFF");
-            arduino.enviarDatos("RELE");
+            arduino.enviarDatos("1");
         } else {
             arduino.enviarDatos("2");
             btnRiego.setText("ON");

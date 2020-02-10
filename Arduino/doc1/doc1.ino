@@ -10,15 +10,15 @@ void setup(){
 }
  
 void loop(){
- 
+ digitalWrite(RELE, HIGH);
     if(Serial.available() > 0){
  
         inByte = Serial.read(); //read the incoming byte
  
         if(inByte == '1')
             digitalWrite(LED, HIGH); //turn the LED on
-        if(inByte == "RELE")
-            digitalWrite(RELE, HIGH);
+        
+            
             
         if(inByte == '2')
             digitalWrite(LED, LOW); //turn the LED on

@@ -59,6 +59,18 @@ public class Riego implements Serializable {
     public Riego() {
     }
 
+    public Riego(Integer idRiego, String temperatura, String humedad, String timInicio, String timFin, String timDia, String fecha, Persona persona) {
+        this.idRiego = idRiego;
+        this.temperatura = temperatura;
+        this.humedad = humedad;
+        this.timInicio = timInicio;
+        this.timFin = timFin;
+        this.timDia = timDia;
+        this.fecha = fecha;
+        this.persona = persona;
+    }
+    
+
     public Riego(Integer idRiego) {
         this.idRiego = idRiego;
     }
