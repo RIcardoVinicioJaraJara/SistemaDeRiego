@@ -1,5 +1,6 @@
 package Vista;
 
+import Controlador.ControladorArduino;
 import Controlador.ControladorPersona;
 import Modelo.Persona;
 import java.awt.Color;
@@ -43,14 +44,16 @@ public class Programar extends javax.swing.JInternalFrame {
     private int codAux;
 
     ControladorPersona controladorPersona;
+    ControladorArduino controladorArduino;
 
-    public Programar(JButton b) {
+    public Programar(JButton b, ControladorArduino controladorArduino) {
         initComponents();
         this.b = b;
         cabecera = null;
         modelo = new DefaultTableModel();
         modelotabla = new DefaultTableModel();
         controladorPersona = new ControladorPersona();
+        this.controladorArduino = controladorArduino;
     }
 
     @SuppressWarnings("unchecked")
@@ -59,15 +62,11 @@ public class Programar extends javax.swing.JInternalFrame {
 
         jMenuItem1 = new javax.swing.JMenuItem();
         controladorCliente = new javax.swing.JLabel();
-        cedula = new javax.swing.JLabel();
-        txtHoraIni = new javax.swing.JTextField();
-        nombre = new javax.swing.JLabel();
-        tctHoraFin = new javax.swing.JTextField();
         btnIniciar1 = new javax.swing.JButton();
         cedula1 = new javax.swing.JLabel();
         nombre1 = new javax.swing.JLabel();
-        txtHoraIni1 = new javax.swing.JTextField();
-        tctHoraFin1 = new javax.swing.JTextField();
+        txtInicio = new javax.swing.JTextField();
+        txtFin = new javax.swing.JTextField();
         jMenuBar1 = new javax.swing.JMenuBar();
 
         jMenuItem1.setText("jMenuItem1");
@@ -95,27 +94,6 @@ public class Programar extends javax.swing.JInternalFrame {
         controladorCliente.setFont(new java.awt.Font("Sitka Heading", 2, 24)); // NOI18N
         controladorCliente.setText("PROGRAMAR RIEGO");
 
-        cedula.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
-        cedula.setText("HORA INICIO:");
-
-        txtHoraIni.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtHoraIniKeyPressed(evt);
-            }
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtHoraIniKeyTyped(evt);
-            }
-        });
-
-        nombre.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
-        nombre.setText("HORO FIN:");
-
-        tctHoraFin.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                tctHoraFinKeyTyped(evt);
-            }
-        });
-
         btnIniciar1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnIniciar1.setForeground(new java.awt.Color(0, 0, 255));
         btnIniciar1.setText("INICIAR");
@@ -126,23 +104,23 @@ public class Programar extends javax.swing.JInternalFrame {
         });
 
         cedula1.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
-        cedula1.setText("FECHA INICIO:");
+        cedula1.setText("EN CUENTO MINUTOS DEBE INICIAR:");
 
         nombre1.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
-        nombre1.setText("FECHA FIN:");
+        nombre1.setText("CUNTOS MINUTOS DEBE CORRER:");
 
-        txtHoraIni1.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtInicio.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
-                txtHoraIni1KeyPressed(evt);
+                txtInicioKeyPressed(evt);
             }
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                txtHoraIni1KeyTyped(evt);
+                txtInicioKeyTyped(evt);
             }
         });
 
-        tctHoraFin1.addKeyListener(new java.awt.event.KeyAdapter() {
+        txtFin.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                tctHoraFin1KeyTyped(evt);
+                txtFinKeyTyped(evt);
             }
         });
         setJMenuBar(jMenuBar1);
@@ -161,20 +139,15 @@ public class Programar extends javax.swing.JInternalFrame {
                         .addComponent(btnIniciar1)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(51, 51, 51)
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(nombre1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(cedula1, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(cedula, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 114, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 77, Short.MAX_VALUE)
+                    .addComponent(cedula1, javax.swing.GroupLayout.PREFERRED_SIZE, 280, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nombre1, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 60, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tctHoraFin, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtHoraIni1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(tctHoraFin1, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtHoraIni, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(98, 98, 98))
+                    .addComponent(txtFin, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(42, 42, 42))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -182,26 +155,16 @@ public class Programar extends javax.swing.JInternalFrame {
                 .addGap(25, 25, 25)
                 .addComponent(controladorCliente)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(cedula1)
-                        .addGap(20, 20, 20)
-                        .addComponent(nombre1)
-                        .addGap(11, 11, 11)
-                        .addComponent(cedula)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(nombre))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtHoraIni1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(17, 17, 17)
-                        .addComponent(tctHoraFin1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(8, 8, 8)
-                        .addComponent(txtHoraIni, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(tctHoraFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(36, 36, 36)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cedula1)
+                    .addComponent(txtInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(17, 17, 17)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(nombre1)
+                    .addComponent(txtFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(95, 95, 95)
                 .addComponent(btnIniciar1)
-                .addContainerGap(72, Short.MAX_VALUE))
+                .addContainerGap(76, Short.MAX_VALUE))
         );
 
         pack();
@@ -213,53 +176,40 @@ public class Programar extends javax.swing.JInternalFrame {
         b.setEnabled(true);
     }//GEN-LAST:event_cerrando
 
-    private void txtHoraIniKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtHoraIniKeyPressed
-
-    }//GEN-LAST:event_txtHoraIniKeyPressed
-
-    private void txtHoraIniKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtHoraIniKeyTyped
-        if (evt.getKeyCode() != KeyEvent.VK_DELETE) {
-            if (evt.getKeyChar() < '0' || evt.getKeyChar() > '9') {
-                evt.consume();
-            }
-        }
-    }//GEN-LAST:event_txtHoraIniKeyTyped
-
-    private void tctHoraFinKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tctHoraFinKeyTyped
-        char c = evt.getKeyChar();
-        if (Character.isDigit(c)) {
-            evt.consume();
-        }
-    }//GEN-LAST:event_tctHoraFinKeyTyped
-
     private void btnIniciar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIniciar1ActionPerformed
-    
+        try{
+        int ini= Integer.parseInt(txtInicio.getText())*10000;
+        int fin = Integer.parseInt(txtFin.getText())*10000;
+            Thread.sleep(ini);
+            controladorArduino.enviarDatos("1");
+            Thread.sleep(fin);
+            controladorArduino.enviarDatos("2");
+            
+        }catch(Exception ex){
+            System.out.println(ex.getMessage());
+        }
     }//GEN-LAST:event_btnIniciar1ActionPerformed
 
-    private void txtHoraIni1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtHoraIni1KeyPressed
+    private void txtInicioKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtInicioKeyPressed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtHoraIni1KeyPressed
+    }//GEN-LAST:event_txtInicioKeyPressed
 
-    private void txtHoraIni1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtHoraIni1KeyTyped
+    private void txtInicioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtInicioKeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtHoraIni1KeyTyped
+    }//GEN-LAST:event_txtInicioKeyTyped
 
-    private void tctHoraFin1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tctHoraFin1KeyTyped
+    private void txtFinKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtFinKeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_tctHoraFin1KeyTyped
+    }//GEN-LAST:event_txtFinKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIniciar1;
-    private javax.swing.JLabel cedula;
     private javax.swing.JLabel cedula1;
     private javax.swing.JLabel controladorCliente;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JLabel nombre;
     private javax.swing.JLabel nombre1;
-    private javax.swing.JTextField tctHoraFin;
-    private javax.swing.JTextField tctHoraFin1;
-    private javax.swing.JTextField txtHoraIni;
-    private javax.swing.JTextField txtHoraIni1;
+    private javax.swing.JTextField txtFin;
+    private javax.swing.JTextField txtInicio;
     // End of variables declaration//GEN-END:variables
 }

@@ -6,8 +6,8 @@ int luz;
 int humedad;
 int regarPin = 2;
 int sensorHumedad = A5;
-int sensorLuz = A4;
-int sensorLluvia = A3;
+int sensorLuz = A0;
+int sensorLluvia = A15;
 void setup() {
 pinMode(regarPin, OUTPUT);
 Serial.begin(9600); 

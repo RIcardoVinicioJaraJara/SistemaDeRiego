@@ -10,40 +10,47 @@ import Modelo.Riego;
 import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
 import java.util.Date;
+import javax.swing.JOptionPane;
 import panamahitek.PanamaHitek_Arduino;
 
 /**
  *
  * @author Ricardo
  */
+public final class ControladorArduino extends Thread {
 
-
-public final class ControladorArduino {
-    private Riego riego;
+    private static Persona persona;
+    private static Riego riego;
+    static int cont = 0;
     private final String puerto = "COM3";
     private static PanamaHitek_Arduino Arduino = new PanamaHitek_Arduino();
-    private static SerialPortEventListener listener ;
-    public ControladorArduino(Persona persona) {
-        riego = new Riego();
-        listener = new SerialPortEventListener() {
+    private static ControladorRiego controladorRiego = new ControladorRiego();
+    private static SerialPortEventListener listener = new SerialPortEventListener() {
         @Override
         public void serialEvent(SerialPortEvent spe) {
+            
             try {
                 if (Arduino.isMessageAvailable()) {
                     String txt = Arduino.printMessage();
-                    int loc = txt.indexOf("Humedad");
-                    
-                    String humedad = txt.substring(loc,5);
-                    loc = txt.indexOf("Lluvia");
-                    
-                    String lluvia = txt.substring(loc,5);
-                    loc = txt.indexOf("Luz");
-                    String temperatura = txt.substring(loc,5);
-                    
-                    Date fecha = new Date();
-                    String fe = fecha.getYear() +"/" + fecha.getMonth() + "/" + fecha.getDay();
-                    Riego riego = new Riego(0,temperatura,humedad,"0","0",lluvia,fe,persona);
-                    System.out.println();
+                    String humedad[] = txt.split("#");
+                    String temperatura[] = txt.split("%");
+                    String lluvia[] = txt.split("&");
+                    String regadera[] = txt.split("@");
+
+                    Date fe = new Date();
+                    String fecha = fe.getYear() + "/" + fe.getMonth() + "/" + fe.getDay();
+                    String hora = fe.getHours() + ":" + fe.getMinutes() + ":" + fe.getSeconds();
+                    riego = new Riego(0, temperatura[1], humedad[1], regadera[1], lluvia[1], fecha, hora, persona);
+                    if (cont >= 10) {
+                        controladorRiego.createRiego(riego);
+                        System.out.println("ingresado0000000000000000000oooooo");
+                        cont = 0;
+                    }
+
+                    cont++;
+
+                    System.out.println(txt);
+                    Thread.sleep(1000);
                 }
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
@@ -51,6 +58,24 @@ public final class ControladorArduino {
 
         }
     };
+
+    ;
+
+    public static Riego getRiego() {
+        return riego;
+    }
+
+    public static void setRiego(Riego riego) {
+        ControladorArduino.riego = riego;
+    }
+
+    public ControladorArduino(Persona persona) {
+
+        // conectar();
+        riego = new Riego();
+        controladorRiego = new ControladorRiego();
+        this.persona = persona;
+
     }
 
     public boolean conectar() {
@@ -81,6 +106,22 @@ public final class ControladorArduino {
             System.out.println(ex.getMessage());
             return false;
         }
+    }
+
+    public static PanamaHitek_Arduino getArduino() {
+        return Arduino;
+    }
+
+    public static void setArduino(PanamaHitek_Arduino Arduino) {
+        ControladorArduino.Arduino = Arduino;
+    }
+
+    public static SerialPortEventListener getListener() {
+        return listener;
+    }
+
+    public static void setListener(SerialPortEventListener listener) {
+        ControladorArduino.listener = listener;
     }
 
 }

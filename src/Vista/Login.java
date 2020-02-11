@@ -47,7 +47,7 @@ public class Login extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        txtCedula.setText("0105452171");
+        txtCedula.setText("0105452172");
         txtCedula.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtCedulaKeyPressed(evt);
@@ -129,8 +129,8 @@ public class Login extends javax.swing.JFrame {
         if (per != null) {
             if (per.getRol().equals("ADMIN")) {
                 JOptionPane.showMessageDialog(this, "INGRESA COMO ADMIN");
-                Principal vu = new Principal();
-                String[] args = null;
+                Principal vu = new Principal(per.getCedula());
+                String[] args = null;   
                 vu.main(args);
                 this.dispose();
             } else {

@@ -5,7 +5,7 @@
 
 // Declaracion de variables globales
 float tempC; // Variable para almacenar el valor obtenido del sensor (0 a 1023)
-int pinLM35 = A5; // Variable del pin de entrada del sensor (A0)
+int pinLM35 = A0; // Variable del pin de entrada del sensor (A0)
 
 void setup() {
   // Configuramos el puerto serial a 9600 bps

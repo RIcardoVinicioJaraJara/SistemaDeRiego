@@ -8,17 +8,8 @@ package Vista;
 import Controlador.ControladorArduino;
 import Controlador.ControladorPersona;
 import Modelo.Persona;
-import java.awt.Desktop;
 import static java.awt.Frame.MAXIMIZED_BOTH;
-import java.io.File;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.imageio.ImageIO;
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import sun.reflect.generics.visitor.Reifier;
 
 /**
  *
@@ -28,9 +19,10 @@ public class Principal extends javax.swing.JFrame {
 
     private Usuarios ventanaUsuarios;
     private boolean bandera = true;
-    private ControladorArduino arduino;
+    private ControladorArduino controladorArduino;
     private Programar ventanaProgramar;
-    private Riego ventanaRiego;
+    private VentanaRiego ventanaRiego;
+    private ListaDatos listaDatos;
     private ControladorPersona controladorPersona;
 
     //private coneccion coneccion;
@@ -39,13 +31,30 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
         controladorPersona = new ControladorPersona();
-        ventanaUsuarios = new Usuarios(btnClientes);
-        ventanaProgramar = new Programar(btnProgramar);
-        ventanaRiego = new Riego(btnDRiegos);
-        escritorio.setFocusable(false);
         Persona p = controladorPersona.findByCedula("0105452171");
-        arduino = new ControladorArduino(p);
-        arduino.conectar();
+        controladorArduino = new ControladorArduino(p);
+
+        ventanaUsuarios = new Usuarios(btnClientes);
+        ventanaProgramar = new Programar(btnProgramar, controladorArduino);
+        ventanaRiego = new VentanaRiego(btnDRiegos, controladorArduino);
+        listaDatos = new ListaDatos(btnDatosRiego);
+        escritorio.setFocusable(false);
+    }
+
+    public Principal(String cedula) {
+        int n;
+        initComponents();
+        this.setExtendedState(MAXIMIZED_BOTH);
+        controladorPersona = new ControladorPersona();
+        Persona p = controladorPersona.findByCedula(cedula);
+        controladorArduino = new ControladorArduino(p);
+        controladorArduino.conectar();
+        ventanaUsuarios = new Usuarios(btnClientes);
+        ventanaProgramar = new Programar(btnProgramar, controladorArduino);
+        ventanaRiego = new VentanaRiego(btnDRiegos, controladorArduino);
+        listaDatos = new ListaDatos(btnDatosRiego);
+        escritorio.setFocusable(false);
+
     }
 
     /**
@@ -125,21 +134,17 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(escritorioLayout.createSequentialGroup()
                 .addGap(86, 86, 86)
-                .addComponent(btnClientes)
+                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnClientes)
+                    .addComponent(btnDRiegos))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnRiego, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(154, 154, 154)
-                .addComponent(btnProgramar)
+                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(escritorioLayout.createSequentialGroup()
+                        .addComponent(btnRiego, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(154, 154, 154)
+                        .addComponent(btnProgramar))
+                    .addComponent(btnDatosRiego))
                 .addGap(166, 166, 166))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(btnDatosRiego)
-                .addGap(326, 326, 326))
-            .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(escritorioLayout.createSequentialGroup()
-                    .addGap(163, 163, 163)
-                    .addComponent(btnDRiegos)
-                    .addContainerGap(828, Short.MAX_VALUE)))
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -150,14 +155,11 @@ public class Principal extends javax.swing.JFrame {
                     .addComponent(btnRiego, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnClientes))
                 .addGap(76, 76, 76)
-                .addComponent(btnDatosRiego)
-                .addGap(63, 63, 63)
-                .addComponent(salir))
-            .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
-                    .addContainerGap(328, Short.MAX_VALUE)
+                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDRiegos)
-                    .addGap(132, 132, 132)))
+                    .addComponent(btnDatosRiego))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 63, Short.MAX_VALUE)
+                .addComponent(salir))
         );
         escritorio.setLayer(btnClientes, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(salir, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -188,9 +190,9 @@ public class Principal extends javax.swing.JFrame {
     private void btnRiegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRiegoActionPerformed
         if (btnRiego.isSelected()) {
             btnRiego.setText("OFF");
-            arduino.enviarDatos("1");
+            controladorArduino.enviarDatos("1");
         } else {
-            arduino.enviarDatos("2");
+            controladorArduino.enviarDatos("2");
             btnRiego.setText("ON");
         }
     }//GEN-LAST:event_btnRiegoActionPerformed
@@ -213,7 +215,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void btnProgramarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProgramarActionPerformed
         if (ventanaProgramar.isShowing() != true) {
-            ventanaProgramar = new Programar(btnProgramar);
+            ventanaProgramar = new Programar(btnProgramar, controladorArduino);
             btnProgramar.setEnabled(false);
             escritorio.add(ventanaProgramar);
             ventanaProgramar.setVisible(true);
@@ -221,12 +223,18 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnProgramarActionPerformed
 
     private void btnDatosRiegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDatosRiegoActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here: listaDatos = new ListaDatos(btnDatosRiego);
+        if (listaDatos.isShowing() != true) {
+            listaDatos = new ListaDatos(btnDatosRiego);
+            btnDatosRiego.setEnabled(false);
+            escritorio.add(listaDatos);
+            listaDatos.setVisible(true);
+        }
     }//GEN-LAST:event_btnDatosRiegoActionPerformed
 
     private void btnDRiegosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDRiegosActionPerformed
         if (ventanaRiego.isShowing() != true) {
-            ventanaRiego = new Riego(btnDRiegos);
+            ventanaRiego = new VentanaRiego(btnDRiegos, controladorArduino);
             btnDRiegos.setEnabled(false);
             escritorio.add(ventanaRiego);
             ventanaRiego.setVisible(true);

@@ -167,7 +167,7 @@ public class RiegoUsuario extends javax.swing.JInternalFrame {
         jSlider1.setAutoscrolls(true);
         jSlider1.setOpaque(false);
         jSlider1.setRequestFocusEnabled(false);
-        getContentPane().add(jSlider1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 130, 390, -1));
+        getContentPane().add(jSlider1, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 130, 390, -1));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/lluvia.png"))); // NOI18N
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 220, 230, 160));

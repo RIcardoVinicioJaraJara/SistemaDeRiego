@@ -1,16 +1,25 @@
 //Valibarles  Huemedad
-const int ledTemCali = 2;
-const int ledTemNorm = 3;
-const int ledTemFrio = 4;
-const int pinTempera = A0;
+int ledTemCali = 2;
+int ledTemNorm = 3;
+int ledTemFrio = 4;
+int rele = 10;
+String lluviaa = "";
+String humedadd = "";
+String regadera = "INACTIVA";
+
 float temperaturaC;
-int lluvia;
+
 
 //Lluviia
-const int ledLluviaSi = 5;
-const int ledLluviaNo = 6;
-const int pinLluvia = A1;
+int ledLluviaSi = 5;
+int ledLluviaNo = 6;
+int pinTempera =  A0;
+//#define pinHumedad A5
 
+int pinLluvia = 21;
+int pinHumead = 20;
+float lluvia;
+int input;
 
 
 void setup() {
@@ -20,13 +29,30 @@ void setup() {
   pinMode(ledTemNorm, OUTPUT);
   pinMode(ledTemFrio, OUTPUT);
   pinMode(ledLluviaSi, OUTPUT);
-  pinMode(ledLluviaNo, OUTPUT);
-
+  pinMode(rele, OUTPUT);
+  pinMode(pinLluvia, INPUT);
+  pinMode(pinHumead, INPUT);
+  digitalWrite(rele , HIGH);
 
 }
 
 void loop() {
+  
   temperaturaC = analogRead(pinTempera);
+  lluvia = digitalRead(pinLluvia);
+  int valorHumedad = digitalRead(pinHumead);
+
+  if (lluvia == 0) {
+    lluviaa = "SI";
+    digitalWrite(ledLluviaSi , HIGH);
+    digitalWrite(ledLluviaNo , LOW);
+  } else {
+    lluviaa = "NO";
+    digitalWrite(ledLluviaNo , HIGH);
+    digitalWrite(ledLluviaSi , LOW);
+  }
+
+
   temperaturaC = (5.0 * temperaturaC * 100.0) / 1024.0;
   if (temperaturaC < 20 ) {
     digitalWrite(ledTemFrio , HIGH);
@@ -41,21 +67,29 @@ void loop() {
     digitalWrite(ledTemFrio , LOW);
     digitalWrite(ledTemNorm , LOW);
   }
-  Serial.println("Temperatura: " + String(temperaturaC));
 
-  lluvia = analogRead(pinLluvia);
-  Serial.print("Lluvia: " + String(lluvia));
-  if (lluvia < 500) {
-  Serial.println(" Si Hay lluvia");
-  digitalWrite(ledLluviaSi , HIGH);
-    digitalWrite(ledLluviaNo , LOW);
-  }else{
-  Serial.println(" No Hay lluvia");
-  digitalWrite(ledLluviaNo , HIGH);
-    digitalWrite(ledLluviaSi , LOW);
+  if (valorHumedad == 0) {
+    humedadd = "SI";
+  } else {
+    humedadd = "NO";
   }
 
-
+ 
+  
+  Serial.println("Temperatura %" + String(temperaturaC) + "% + Lluvia &" + lluviaa + "&  Humedad #" + humedadd + "# Reigo @" + regadera + "@ .");
   delay(1000);
 
+  if (Serial.available() > 0) {
+    input = Serial.read();
+
+    if (input == '1') {
+        digitalWrite(rele , LOW);
+        regadera =  "ACTIVO";
+    }
+
+    if (input == '2') {
+        digitalWrite(rele , HIGH);
+        regadera =  "INACTIVA";
+    }
+  }
 }

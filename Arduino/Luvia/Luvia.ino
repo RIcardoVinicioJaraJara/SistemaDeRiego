@@ -1,5 +1,5 @@
-#define PIN_ANALOG_RAIN_SENSOR A5  // Entrada analógica para la señal del sensor lluvia
-#define PIN_DIGITAL_RAIN_SENSOR 5  // Entrada digital para la señal del sensor de lluvia
+#define PIN_ANALOG_RAIN_SENSOR A7  // Entrada analógica para la señal del sensor lluvia
+#define PIN_DIGITAL_RAIN_SENSOR 21  // Entrada digital para la señal del sensor de lluvia
  
 void setup(){
    Serial.begin(9600);

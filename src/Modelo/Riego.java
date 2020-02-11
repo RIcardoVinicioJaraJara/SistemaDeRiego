@@ -9,6 +9,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -19,24 +21,25 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author Ricardo
+ * @author vinic
  */
 @Entity
 @Table(name = "riego")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Riego.findAll", query = "SELECT r FROM Riego r")
-    , @NamedQuery(name = "Riego.findByIdRiego", query = "SELECT r FROM Riego r WHERE r.idRiego = :idRiego")
-    , @NamedQuery(name = "Riego.findByTemperatura", query = "SELECT r FROM Riego r WHERE r.temperatura = :temperatura")
-    , @NamedQuery(name = "Riego.findByHumedad", query = "SELECT r FROM Riego r WHERE r.humedad = :humedad")
-    , @NamedQuery(name = "Riego.findByTimInicio", query = "SELECT r FROM Riego r WHERE r.timInicio = :timInicio")
-    , @NamedQuery(name = "Riego.findByTimFin", query = "SELECT r FROM Riego r WHERE r.timFin = :timFin")
-    , @NamedQuery(name = "Riego.findByTimDia", query = "SELECT r FROM Riego r WHERE r.timDia = :timDia")
-    , @NamedQuery(name = "Riego.findByFecha", query = "SELECT r FROM Riego r WHERE r.fecha = :fecha")})
+    @NamedQuery(name = "Riego.findAll", query = "SELECT r FROM Riego r"),
+    @NamedQuery(name = "Riego.findByIdRiego", query = "SELECT r FROM Riego r WHERE r.idRiego = :idRiego"),
+    @NamedQuery(name = "Riego.findByTemperatura", query = "SELECT r FROM Riego r WHERE r.temperatura = :temperatura"),
+    @NamedQuery(name = "Riego.findByHumedad", query = "SELECT r FROM Riego r WHERE r.humedad = :humedad"),
+    @NamedQuery(name = "Riego.findByRegadera", query = "SELECT r FROM Riego r WHERE r.regadera = :regadera"),
+    @NamedQuery(name = "Riego.findByLluvia", query = "SELECT r FROM Riego r WHERE r.lluvia = :lluvia"),
+    @NamedQuery(name = "Riego.findByFecha", query = "SELECT r FROM Riego r WHERE r.fecha = :fecha"),
+    //SELECT COUNT(*) as num, Persona.nombre as NOM from riego, persona WHERE persona.idPersona = riego.Persona  group by riego.Persona
+    @NamedQuery(name = "Riego.findByHora", query = "SELECT r FROM Riego r WHERE r.hora = :hora")})
 public class Riego implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idRiego")
     private Integer idRiego;
@@ -44,14 +47,15 @@ public class Riego implements Serializable {
     private String temperatura;
     @Column(name = "humedad")
     private String humedad;
-    @Column(name = "tim_inicio")
-    private String timInicio;
-    @Column(name = "tim_fin")
-    private String timFin;
-    @Column(name = "tim_dia")
-    private String timDia;
+    @Column(name = "regadera")
+    private String regadera;
+    @Column(name = "lluvia")
+    private String lluvia;
     @Column(name = "fecha")
     private String fecha;
+    @Basic(optional = false)
+    @Column(name = "hora")
+    private String hora;
     @JoinColumn(name = "Persona", referencedColumnName = "idPersona")
     @ManyToOne(optional = false)
     private Persona persona;
@@ -59,20 +63,25 @@ public class Riego implements Serializable {
     public Riego() {
     }
 
-    public Riego(Integer idRiego, String temperatura, String humedad, String timInicio, String timFin, String timDia, String fecha, Persona persona) {
+    public Riego(Integer idRiego, String temperatura, String humedad, String regadera, String lluvia, String fecha, String hora, Persona persona) {
         this.idRiego = idRiego;
         this.temperatura = temperatura;
         this.humedad = humedad;
-        this.timInicio = timInicio;
-        this.timFin = timFin;
-        this.timDia = timDia;
+        this.regadera = regadera;
+        this.lluvia = lluvia;
         this.fecha = fecha;
+        this.hora = hora;
         this.persona = persona;
     }
     
-
+    
     public Riego(Integer idRiego) {
         this.idRiego = idRiego;
+    }
+
+    public Riego(Integer idRiego, String hora) {
+        this.idRiego = idRiego;
+        this.hora = hora;
     }
 
     public Integer getIdRiego() {
@@ -99,28 +108,20 @@ public class Riego implements Serializable {
         this.humedad = humedad;
     }
 
-    public String getTimInicio() {
-        return timInicio;
+    public String getRegadera() {
+        return regadera;
     }
 
-    public void setTimInicio(String timInicio) {
-        this.timInicio = timInicio;
+    public void setRegadera(String regadera) {
+        this.regadera = regadera;
     }
 
-    public String getTimFin() {
-        return timFin;
+    public String getLluvia() {
+        return lluvia;
     }
 
-    public void setTimFin(String timFin) {
-        this.timFin = timFin;
-    }
-
-    public String getTimDia() {
-        return timDia;
-    }
-
-    public void setTimDia(String timDia) {
-        this.timDia = timDia;
+    public void setLluvia(String lluvia) {
+        this.lluvia = lluvia;
     }
 
     public String getFecha() {
@@ -129,6 +130,14 @@ public class Riego implements Serializable {
 
     public void setFecha(String fecha) {
         this.fecha = fecha;
+    }
+
+    public String getHora() {
+        return hora;
+    }
+
+    public void setHora(String hora) {
+        this.hora = hora;
     }
 
     public Persona getPersona() {
