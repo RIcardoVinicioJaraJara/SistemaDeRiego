@@ -6,6 +6,8 @@
 package Vista;
 
 import Controlador.ControladorArduino;
+import Controlador.ControladorPersona;
+import Controlador.ControladorRiego;
 import java.awt.Desktop;
 import static java.awt.Frame.MAXIMIZED_BOTH;
 import java.io.File;
@@ -28,17 +30,31 @@ public class PrincipalUsuario extends javax.swing.JFrame {
     private ControladorArduino arduino;
     private Programar ventanaProgramar;
     private RiegoUsuario ventanaRiengoUsr;
-
+    private ControladorRiego controladorRiego;
+    private ControladorPersona controladorPersona;
     //private coneccion coneccion;
     public PrincipalUsuario() {
         int n;
         initComponents();
+//        this.setExtendedState(MAXIMIZED_BOTH);
+//        ventanaRiengoUsr = new RiegoUsuario(btnMiRiego1);
+//        escritorio.setFocusable(false);
+//        controladorRiego = new ControladorRiego();
+//        controladorPersona = new ControladorPersona();
+//        arduino = new ControladorArduino(controladorPersona.findByCedula("0105452171"));
+//        arduino.conectar();
+    }
+    
+    public PrincipalUsuario(String cedula) {
+         int n;
+        initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
-        ventanaUsuarios = new UsuariosDatos(btnClientes);
         ventanaRiengoUsr = new RiegoUsuario(btnMiRiego1);
         escritorio.setFocusable(false);
-       // arduino = new ControladorArduino();
-      //  arduino.conectar();
+        controladorRiego = new ControladorRiego();
+        controladorPersona = new ControladorPersona();
+        arduino = new ControladorArduino(controladorPersona.findByCedula(cedula));
+        arduino.conectar();
     }
 
     /**
@@ -51,7 +67,6 @@ public class PrincipalUsuario extends javax.swing.JFrame {
     private void initComponents() {
 
         escritorio = new javax.swing.JDesktopPane();
-        btnClientes = new javax.swing.JButton();
         salir = new javax.swing.JButton();
         btnMiRiego1 = new javax.swing.JButton();
         btnMiRiego2 = new javax.swing.JButton();
@@ -59,13 +74,6 @@ public class PrincipalUsuario extends javax.swing.JFrame {
         btnMiRiego4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        btnClientes.setText("MIS DATOS");
-        btnClientes.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnClientesActionPerformed(evt);
-            }
-        });
 
         salir.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/login.png"))); // NOI18N
         salir.setText("LOGIN");
@@ -112,47 +120,32 @@ public class PrincipalUsuario extends javax.swing.JFrame {
                 .addComponent(salir, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
-                .addGap(86, 86, 86)
-                .addComponent(btnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 202, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(escritorioLayout.createSequentialGroup()
-                        .addComponent(btnMiRiego4, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(503, 503, 503))
-                    .addGroup(escritorioLayout.createSequentialGroup()
-                        .addComponent(btnMiRiego1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(102, 102, 102)
+                        .addComponent(btnMiRiego3, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnMiRiego2, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(145, 145, 145))))
-            .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(escritorioLayout.createSequentialGroup()
-                    .addGap(96, 96, 96)
-                    .addComponent(btnMiRiego3, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(909, Short.MAX_VALUE)))
+                        .addComponent(btnMiRiego1, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(escritorioLayout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnMiRiego4, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(196, 196, 196)
+                .addComponent(btnMiRiego2, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(96, 96, 96))
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(escritorioLayout.createSequentialGroup()
-                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(escritorioLayout.createSequentialGroup()
-                        .addGap(133, 133, 133)
-                        .addComponent(btnClientes, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
-                        .addGap(141, 141, 141)
-                        .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(btnMiRiego1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(btnMiRiego2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(70, 70, 70)
-                .addComponent(btnMiRiego4, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(74, 74, 74)
-                .addComponent(salir))
-            .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
-                    .addContainerGap(326, Short.MAX_VALUE)
+                .addGap(160, 160, 160)
+                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnMiRiego1, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnMiRiego3, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGap(134, 134, 134)))
+                    .addComponent(btnMiRiego2, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(73, 73, 73)
+                .addComponent(btnMiRiego4, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(52, 52, 52)
+                .addComponent(salir))
         );
-        escritorio.setLayer(btnClientes, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(salir, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(btnMiRiego1, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(btnMiRiego2, javax.swing.JLayeredPane.DEFAULT_LAYER);
@@ -184,15 +177,6 @@ public class PrincipalUsuario extends javax.swing.JFrame {
         vu.main(args);
         this.dispose();
     }//GEN-LAST:event_salirActionPerformed
-
-    private void btnClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClientesActionPerformed
-        if (ventanaUsuarios.isShowing() != true) {
-            ventanaUsuarios = new UsuariosDatos(btnClientes);
-            btnClientes.setEnabled(false);
-            escritorio.add(ventanaUsuarios);
-            ventanaUsuarios.setVisible(true);
-        }
-    }//GEN-LAST:event_btnClientesActionPerformed
 
     private void btnMiRiego1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMiRiego1ActionPerformed
         // TODO add your handling code here:
@@ -259,7 +243,6 @@ public class PrincipalUsuario extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnClientes;
     private javax.swing.JButton btnMiRiego1;
     private javax.swing.JButton btnMiRiego2;
     private javax.swing.JButton btnMiRiego3;

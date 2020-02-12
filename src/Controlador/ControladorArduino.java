@@ -70,6 +70,9 @@ public final class ControladorArduino extends Thread {
         ControladorArduino.riego = riego;
     }
 
+    public ControladorArduino() {
+    }
+    
     public ControladorArduino(Persona persona) {
 
         // conectar();

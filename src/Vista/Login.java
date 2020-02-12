@@ -135,11 +135,10 @@ public class Login extends javax.swing.JFrame {
                 this.dispose();
             } else {
                 JOptionPane.showMessageDialog(this, "INGRESA COMO USER");
-                PrincipalUsuario vu = new PrincipalUsuario();
+                PrincipalUsuario vu = new PrincipalUsuario(per.getCedula());
                 String[] args = null;
                 vu.main(args);
             }
-
         } else {
             JOptionPane.showMessageDialog(this, "No existe");
         }

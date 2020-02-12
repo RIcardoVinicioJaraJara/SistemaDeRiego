@@ -31,8 +31,7 @@ public class Principal extends javax.swing.JFrame {
         initComponents();
         this.setExtendedState(MAXIMIZED_BOTH);
         controladorPersona = new ControladorPersona();
-        Persona p = controladorPersona.findByCedula("0105452171");
-        controladorArduino = new ControladorArduino(p);
+        controladorArduino = new ControladorArduino();
 
         ventanaUsuarios = new Usuarios(btnClientes);
         ventanaProgramar = new Programar(btnProgramar, controladorArduino);
