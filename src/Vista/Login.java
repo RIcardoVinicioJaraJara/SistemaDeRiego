@@ -128,7 +128,7 @@ public class Login extends javax.swing.JFrame {
         Persona per = controladorPersona.findByCedula(txtCedula.getText());
         if (per != null) {
             if(per.getCambiar()){
-                String c = JOptionPane.showInputDialog(null, "Ncesitas Cambiar la Contrase;a \n Por favor ingrese una nueva");
+                String c = JOptionPane.showInputDialog(this, "Ncesitas Cambiar la Contrase;a \n Por favor ingrese una nueva");
                 per.setContracenia(c);
                 per.setCambiar(false);
                 controladorPersona.edit(per);
