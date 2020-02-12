@@ -34,32 +34,31 @@ public class PrincipalUsuario extends javax.swing.JFrame {
     private ControladorRiego controladorRiego;
     private ControladorPersona controladorPersona;
     private Persona p;
+    private String cedula;
     
     
     private ListaDatosUsuario ventanaListaDatosUsuario;
     public PrincipalUsuario() {
-        this.p = new Persona();
         int n;
         initComponents();
-        arduino = new ControladorArduino();
-//        this.setExtendedState(MAXIMIZED_BOTH);
+        this.setExtendedState(MAXIMIZED_BOTH);
         ventanaRiengoUsr = new VentanaRiego(btnDRiegos, arduino);
         ventanaListaDatosUsuario = new ListaDatosUsuario(btnLista, p);
-//        escritorio.setFocusable(false);
-//        controladorRiego = new ControladorRiego();
-//        controladorPersona = new ControladorPersona();
-//        arduino = new ControladorArduino(controladorPersona.findByCedula("0105452171"));
-//        arduino.conectar();
+        escritorio.setFocusable(false);
+        controladorRiego = new ControladorRiego();
+        controladorPersona = new ControladorPersona();
+        arduino = new ControladorArduino();
     }
     
     public PrincipalUsuario(String cedula) {
          int n;
         initComponents();
+        this.cedula = cedula;
         this.setExtendedState(MAXIMIZED_BOTH);
         controladorRiego = new ControladorRiego();
         controladorPersona = new ControladorPersona();
         this.p = controladorPersona.findByCedula(cedula);
-        JOptionPane.showMessageDialog(this, "");
+        JOptionPane.showMessageDialog(this, p.getNombre());
         arduino = new ControladorArduino(p);
         ventanaListaDatosUsuario = new ListaDatosUsuario(btnLista, this.p);
         arduino.conectar();
@@ -83,8 +82,6 @@ public class PrincipalUsuario extends javax.swing.JFrame {
         salir = new javax.swing.JButton();
         btnDRiegos = new javax.swing.JButton();
         btnLista = new javax.swing.JButton();
-        btnMiRiego3 = new javax.swing.JButton();
-        btnMiRiego4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -110,20 +107,6 @@ public class PrincipalUsuario extends javax.swing.JFrame {
             }
         });
 
-        btnMiRiego3.setText("IMPRIMIR");
-        btnMiRiego3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMiRiego3ActionPerformed(evt);
-            }
-        });
-
-        btnMiRiego4.setText("PDF");
-        btnMiRiego4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnMiRiego4ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
@@ -133,18 +116,11 @@ public class PrincipalUsuario extends javax.swing.JFrame {
                 .addComponent(salir, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, escritorioLayout.createSequentialGroup()
-                .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(escritorioLayout.createSequentialGroup()
-                        .addGap(102, 102, 102)
-                        .addComponent(btnMiRiego3, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnDRiegos, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(escritorioLayout.createSequentialGroup()
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnMiRiego4, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(196, 196, 196)
+                .addGap(162, 162, 162)
+                .addComponent(btnDRiegos, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnLista, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(96, 96, 96))
+                .addGap(153, 153, 153))
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -152,18 +128,13 @@ public class PrincipalUsuario extends javax.swing.JFrame {
                 .addGap(160, 160, 160)
                 .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnDRiegos, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnMiRiego3, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnLista, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(73, 73, 73)
-                .addComponent(btnMiRiego4, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(52, 52, 52)
+                .addGap(241, 241, 241)
                 .addComponent(salir))
         );
         escritorio.setLayer(salir, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(btnDRiegos, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(btnLista, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btnMiRiego3, javax.swing.JLayeredPane.DEFAULT_LAYER);
-        escritorio.setLayer(btnMiRiego4, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -202,7 +173,6 @@ public class PrincipalUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDRiegosActionPerformed
 
     private void btnListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaActionPerformed
-        // TODO add your handling code here: ventanaListaDatosUsuario
         if (ventanaListaDatosUsuario.isShowing() != true) {
             ventanaListaDatosUsuario = new ListaDatosUsuario(btnLista, this.p);
             btnLista.setEnabled(false);
@@ -210,14 +180,6 @@ public class PrincipalUsuario extends javax.swing.JFrame {
             ventanaListaDatosUsuario.setVisible(true);
         }
     }//GEN-LAST:event_btnListaActionPerformed
-
-    private void btnMiRiego3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMiRiego3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnMiRiego3ActionPerformed
-
-    private void btnMiRiego4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnMiRiego4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnMiRiego4ActionPerformed
 
     @Override
     protected void finalize() throws Throwable {
@@ -270,8 +232,6 @@ public class PrincipalUsuario extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDRiegos;
     private javax.swing.JButton btnLista;
-    private javax.swing.JButton btnMiRiego3;
-    private javax.swing.JButton btnMiRiego4;
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JButton salir;
     // End of variables declaration//GEN-END:variables

@@ -92,7 +92,7 @@ public class ListaDatosUsuario extends javax.swing.JInternalFrame {
             datoscliente = new Object[8];
 
             for (Riego r : lista) {
-                if(r.getPersona() == persona){
+               // if(r.getPersona() == persona){
                 datoscliente[0] = r.getIdRiego();
                 datoscliente[1] = r.getTemperatura();
                 datoscliente[2] = r.getHumedad();
@@ -103,7 +103,7 @@ public class ListaDatosUsuario extends javax.swing.JInternalFrame {
                 datoscliente[7] = r.getPersona().getNombre() + " " + r.getPersona().getApellido();
                 modelotabla.addRow(datoscliente);
                 tabla.setModel(modelotabla);
-                }
+              //  }
             }
             List<String> lisA = controladorRiego.findCout();
             List<String> lisB = controladorRiego.findCout1();

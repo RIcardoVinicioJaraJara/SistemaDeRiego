@@ -51,21 +51,11 @@
                   <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
-                  <Group type="103" groupAlignment="1" attributes="0">
-                      <Group type="102" attributes="0">
-                          <EmptySpace min="-2" pref="102" max="-2" attributes="0"/>
-                          <Component id="btnMiRiego3" min="-2" pref="211" max="-2" attributes="0"/>
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="btnDRiegos" min="-2" pref="211" max="-2" attributes="0"/>
-                      </Group>
-                      <Group type="102" attributes="0">
-                          <EmptySpace max="32767" attributes="0"/>
-                          <Component id="btnMiRiego4" min="-2" pref="211" max="-2" attributes="0"/>
-                      </Group>
-                  </Group>
-                  <EmptySpace min="-2" pref="196" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="162" max="-2" attributes="0"/>
+                  <Component id="btnDRiegos" min="-2" pref="211" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Component id="btnLista" min="-2" pref="211" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="96" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="153" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -75,12 +65,9 @@
                   <EmptySpace min="-2" pref="160" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="btnDRiegos" alignment="3" min="-2" pref="116" max="-2" attributes="0"/>
-                      <Component id="btnMiRiego3" alignment="3" min="-2" pref="116" max="-2" attributes="0"/>
                       <Component id="btnLista" alignment="3" min="-2" pref="116" max="-2" attributes="0"/>
                   </Group>
-                  <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
-                  <Component id="btnMiRiego4" min="-2" pref="116" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="52" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="241" max="-2" attributes="0"/>
                   <Component id="salir" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -112,22 +99,6 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnListaActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnMiRiego3">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="IMPRIMIR"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMiRiego3ActionPerformed"/>
-          </Events>
-        </Component>
-        <Component class="javax.swing.JButton" name="btnMiRiego4">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="PDF"/>
-          </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnMiRiego4ActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
