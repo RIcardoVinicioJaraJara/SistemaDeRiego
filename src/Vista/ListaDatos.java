@@ -19,6 +19,8 @@ import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Event;
 import java.awt.event.KeyEvent;
+import java.awt.print.PrinterJob;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.net.URI;
@@ -29,6 +31,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Calendar;
 import java.util.List;
+import java.util.logging.Level;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartFrame;
 import org.jfree.chart.JFreeChart;
@@ -46,6 +49,8 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.event.InternalFrameEvent;
 import javax.swing.table.DefaultTableModel;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.printing.PDFPageable;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartUtilities;
 
@@ -224,6 +229,11 @@ public class ListaDatos extends javax.swing.JInternalFrame {
         controladorCliente.setText("LISTA DE RIEGOS");
 
         jButton1.setText("IMPRIMIR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("PDF");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -445,6 +455,22 @@ public class ListaDatos extends javax.swing.JInternalFrame {
         }
 
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        try {
+            PDDocument document = PDDocument.load(new File("Informe.pdf"));
+
+            PrinterJob job = PrinterJob.getPrinterJob();
+
+            if (job.printDialog() == true) {
+                job.setPageable(new PDFPageable(document));
+                JOptionPane.showMessageDialog(this, "Imprimiendo documento");
+                job.print();
+            }
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel controladorCliente;
