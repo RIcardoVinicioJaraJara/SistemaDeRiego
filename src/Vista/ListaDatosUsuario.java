@@ -90,29 +90,32 @@ public class ListaDatosUsuario extends javax.swing.JInternalFrame {
             modelotabla.addColumn("PERSONA");
             tabla.setModel(modelotabla);
             datoscliente = new Object[8];
-
+            int activa = 0;
+            int inactiva = 0;
             for (Riego r : lista) {
-                if(r.getPersona().getCedula() == "0105452172"){
-                datoscliente[0] = r.getIdRiego();
-                datoscliente[1] = r.getTemperatura();
-                datoscliente[2] = r.getHumedad();
-                datoscliente[3] = r.getRegadera();
-                datoscliente[4] = r.getLluvia();
-                datoscliente[5] = r.getFecha();
-                datoscliente[6] = r.getHora();
-                datoscliente[7] = r.getPersona().getNombre() + " " + r.getPersona().getApellido();
-                modelotabla.addRow(datoscliente);
-                tabla.setModel(modelotabla);
+                if (r.getPersona().equals(persona)) {
+                    datoscliente[0] = r.getIdRiego();
+                    datoscliente[1] = r.getTemperatura();
+                    datoscliente[2] = r.getHumedad();
+                    datoscliente[3] = r.getRegadera();
+                    datoscliente[4] = r.getLluvia();
+                    datoscliente[5] = r.getFecha();
+                    datoscliente[6] = r.getHora();
+                    datoscliente[7] = r.getPersona().getNombre() + " " + r.getPersona().getApellido();
+                    if (r.getRegadera().equals("ACTIVO")) {
+                        activa++;
+                    } else {
+                        inactiva++;
+                    }
+                    modelotabla.addRow(datoscliente);
+                    tabla.setModel(modelotabla);
                 }
             }
-            List<String> lisA = controladorRiego.findCout();
-            List<String> lisB = controladorRiego.findCout1();
             DefaultPieDataset datos = new DefaultPieDataset();
-            for (int i = 0; i < lisA.size(); i++) {
-                datos.setValue(lisB.get(i).toString(), Integer.parseInt(String.valueOf(lisA.get(i))));
-            }
+            datos.setValue("ACTIVO", activa);
+            datos.setValue("INCATIVA", inactiva);
 
-            JFreeChart ch = ChartFactory.createPieChart3D("Porcentaje de Uso de Riego", datos, true, true, false);
+            JFreeChart ch = ChartFactory.createPieChart3D("ESTADO DE REGADERA", datos, true, true, false);
             ChartPanel cp = new ChartPanel(ch);
             this.add(cp);
             cp.setBounds(700, 60, 500, 500);

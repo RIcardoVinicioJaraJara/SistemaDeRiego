@@ -48,6 +48,7 @@ public class PrincipalUsuario extends javax.swing.JFrame {
         controladorRiego = new ControladorRiego();
         controladorPersona = new ControladorPersona();
         arduino = new ControladorArduino();
+        JOptionPane.showMessageDialog(this, "Pas o no pasa");
     }
     
     public PrincipalUsuario(String cedula) {
@@ -175,6 +176,7 @@ public class PrincipalUsuario extends javax.swing.JFrame {
     private void btnListaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnListaActionPerformed
         if (ventanaListaDatosUsuario.isShowing() != true) {
             ventanaListaDatosUsuario = new ListaDatosUsuario(btnLista, this.p);
+            JOptionPane.showMessageDialog(this, this.p.getNombre()+" >>>>>>>>>>");
             btnLista.setEnabled(false);
             escritorio.add(ventanaListaDatosUsuario);
             ventanaListaDatosUsuario.setVisible(true);

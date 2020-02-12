@@ -143,7 +143,9 @@ public class Login extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "INGRESA COMO USER");
                 PrincipalUsuario vu = new PrincipalUsuario(per.getCedula());
                 String[] args = null;
-                vu.main(args);
+                vu.show();
+                vu.setVisible(true);
+                this.dispose();
             }
         } else {
             JOptionPane.showMessageDialog(this, "No existe");
