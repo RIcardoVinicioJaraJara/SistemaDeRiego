@@ -89,7 +89,7 @@ void loop() {
 
     if (input == '2') {
         digitalWrite(rele , HIGH);
-        regadera =  "INACTIVA";
+        regadera =  "INACTIVO";
     }
   }
 }

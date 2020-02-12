@@ -9,6 +9,7 @@ import Modelo.Persona;
 import Modelo.Riego;
 import gnu.io.SerialPortEvent;
 import gnu.io.SerialPortEventListener;
+import java.util.Calendar;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import panamahitek.PanamaHitek_Arduino;
@@ -28,7 +29,7 @@ public final class ControladorArduino extends Thread {
     private static SerialPortEventListener listener = new SerialPortEventListener() {
         @Override
         public void serialEvent(SerialPortEvent spe) {
-            
+
             try {
                 if (Arduino.isMessageAvailable()) {
                     String txt = Arduino.printMessage();
@@ -37,9 +38,9 @@ public final class ControladorArduino extends Thread {
                     String lluvia[] = txt.split("&");
                     String regadera[] = txt.split("@");
 
-                    Date fe = new Date();
-                    String fecha = fe.getYear() + "/" + fe.getMonth() + "/" + fe.getDay();
-                    String hora = fe.getHours() + ":" + fe.getMinutes() + ":" + fe.getSeconds();
+                    Calendar fe = Calendar.getInstance();
+                    String fecha = fe.get(Calendar.YEAR) + "/" + (fe.get(Calendar.MONTH) + 1) + "/" + fe.get(Calendar.DAY_OF_MONTH);
+                    String hora = fe.get(Calendar.HOUR) + ":" + fe.get(Calendar.MINUTE) + ":" + fe.get(Calendar.SECOND);
                     riego = new Riego(0, temperatura[1], humedad[1], regadera[1], lluvia[1], fecha, hora, persona);
                     if (cont >= 10) {
                         controladorRiego.createRiego(riego);

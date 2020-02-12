@@ -40,12 +40,17 @@ public class ControladorRiego {
         Query query = em.createNamedQuery("Riego.findAll");
         return query.getResultList();
     }
+
+    public List<String> findCout() {
+        Query query = em.createQuery("SELECT COUNT(r.persona) from Riego r group by r.persona.idPersona");
+         List<String> years = query.getResultList();
+         return years;
+    }
     
-    
-    public List findCout() {
-        return em.createQuery(
-        "Select t from Riego t")
-        .getResultList();
+    public List<String> findCout1() {
+        Query query = em.createQuery("SELECT (r.persona.nombre) from Riego r group by r.persona.idPersona");
+         List<String> years = query.getResultList();
+         return years;
     }
 
     public Riego findByID(int id) {
@@ -55,8 +60,6 @@ public class ControladorRiego {
         }
         return u;
     }
-
-    
 
     public boolean eliminar(int id) {
         try {
