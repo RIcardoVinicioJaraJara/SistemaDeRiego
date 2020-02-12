@@ -66,12 +66,16 @@ public class ListaDatosUsuario extends javax.swing.JInternalFrame {
     private String cabecera[];
     private DefaultTableModel modelotabla;
     private int codAux;
+    private int activa;
+    private int inactiva;
 
     ControladorRiego controladorRiego;
+    private Persona p;
 
     public ListaDatosUsuario(JButton b, Persona persona) {
         initComponents();
         this.b = b;
+        this.p = persona;
         cabecera = null;
         modelo = new DefaultTableModel();
         modelotabla = new DefaultTableModel();
@@ -90,8 +94,8 @@ public class ListaDatosUsuario extends javax.swing.JInternalFrame {
             modelotabla.addColumn("PERSONA");
             tabla.setModel(modelotabla);
             datoscliente = new Object[8];
-            int activa = 0;
-            int inactiva = 0;
+            activa = 0;
+            inactiva = 0;
             for (Riego r : lista) {
                 if (r.getPersona().equals(persona)) {
                     datoscliente[0] = r.getIdRiego();
@@ -391,14 +395,16 @@ public class ListaDatosUsuario extends javax.swing.JInternalFrame {
             List<Riego> lsRiego = controladorRiego.findAll();
 
             for (Riego lsRiego1 : lsRiego) {
-                table.addCell(lsRiego1.getIdRiego() + "");
-                table.addCell(lsRiego1.getTemperatura() + "");
-                table.addCell(lsRiego1.getHumedad() + "");
-                table.addCell(lsRiego1.getRegadera() + "");
-                table.addCell(lsRiego1.getLluvia() + "");
-                table.addCell(lsRiego1.getFecha() + "");
-                table.addCell(lsRiego1.getHora() + "");
-                table.addCell(lsRiego1.getPersona().getNombre() + "");
+                if (lsRiego1.getPersona().equals(this.p)) {
+                    table.addCell(lsRiego1.getIdRiego() + "");
+                    table.addCell(lsRiego1.getTemperatura() + "");
+                    table.addCell(lsRiego1.getHumedad() + "");
+                    table.addCell(lsRiego1.getRegadera() + "");
+                    table.addCell(lsRiego1.getLluvia() + "");
+                    table.addCell(lsRiego1.getFecha() + "");
+                    table.addCell(lsRiego1.getHora() + "");
+                    table.addCell(lsRiego1.getPersona().getNombre() + "");
+                }
             }
 
             document.add(table);
@@ -430,14 +436,10 @@ public class ListaDatosUsuario extends javax.swing.JInternalFrame {
             List<String> lisB = controladorRiego.findCout1();
 
             DefaultPieDataset datos = new DefaultPieDataset();
-            for (int i = 0; i < lisA.size(); i++) {
-                table.addCell(lisB.get(i).toString());
-                table.addCell((String.valueOf(lisA.get(i))));
-                datos.setValue(lisB.get(i).toString(), Integer.parseInt(String.valueOf(lisA.get(i))));
-            }
-            document.add(table);
+            datos.setValue("ACTIVO", this.activa);
+            datos.setValue("INCATIVA", this.inactiva);
 
-            JFreeChart ch = ChartFactory.createPieChart3D("Porcentaje de Uso de Riego", datos, true, true, false);
+            JFreeChart ch = ChartFactory.createPieChart3D("ESTADO DE REGADERA", datos, true, true, false);
             ChartPanel cp = new ChartPanel(ch);
             OutputStream out = new FileOutputStream("tabulacion.png");
             ChartUtilities.writeChartAsPNG(out,

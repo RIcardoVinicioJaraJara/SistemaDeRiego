@@ -57,6 +57,13 @@
                   <Component id="btnLista" min="-2" pref="211" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="153" max="-2" attributes="0"/>
               </Group>
+              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="531" max="-2" attributes="0"/>
+                      <Component id="btnRiego" min="-2" pref="153" max="-2" attributes="0"/>
+                      <EmptySpace pref="532" max="32767" attributes="0"/>
+                  </Group>
+              </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
@@ -69,6 +76,13 @@
                   </Group>
                   <EmptySpace min="-2" pref="241" max="-2" attributes="0"/>
                   <Component id="salir" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <Group type="103" rootIndex="1" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="226" max="-2" attributes="0"/>
+                      <Component id="btnRiego" min="-2" pref="124" max="-2" attributes="0"/>
+                      <EmptySpace pref="226" max="32767" attributes="0"/>
+                  </Group>
               </Group>
           </Group>
         </DimensionLayout>
@@ -99,6 +113,15 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnListaActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JToggleButton" name="btnRiego">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="RIEGO"/>
+            <Property name="horizontalTextPosition" type="int" value="0"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnRiegoActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

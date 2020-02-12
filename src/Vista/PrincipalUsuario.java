@@ -83,6 +83,7 @@ public class PrincipalUsuario extends javax.swing.JFrame {
         salir = new javax.swing.JButton();
         btnDRiegos = new javax.swing.JButton();
         btnLista = new javax.swing.JButton();
+        btnRiego = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -108,6 +109,14 @@ public class PrincipalUsuario extends javax.swing.JFrame {
             }
         });
 
+        btnRiego.setText("RIEGO");
+        btnRiego.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        btnRiego.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRiegoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout escritorioLayout = new javax.swing.GroupLayout(escritorio);
         escritorio.setLayout(escritorioLayout);
         escritorioLayout.setHorizontalGroup(
@@ -122,6 +131,11 @@ public class PrincipalUsuario extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnLista, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(153, 153, 153))
+            .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(escritorioLayout.createSequentialGroup()
+                    .addGap(531, 531, 531)
+                    .addComponent(btnRiego, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(532, Short.MAX_VALUE)))
         );
         escritorioLayout.setVerticalGroup(
             escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -132,10 +146,16 @@ public class PrincipalUsuario extends javax.swing.JFrame {
                     .addComponent(btnLista, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(241, 241, 241)
                 .addComponent(salir))
+            .addGroup(escritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(escritorioLayout.createSequentialGroup()
+                    .addGap(226, 226, 226)
+                    .addComponent(btnRiego, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addContainerGap(226, Short.MAX_VALUE)))
         );
         escritorio.setLayer(salir, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(btnDRiegos, javax.swing.JLayeredPane.DEFAULT_LAYER);
         escritorio.setLayer(btnLista, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        escritorio.setLayer(btnRiego, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -182,6 +202,16 @@ public class PrincipalUsuario extends javax.swing.JFrame {
             ventanaListaDatosUsuario.setVisible(true);
         }
     }//GEN-LAST:event_btnListaActionPerformed
+
+    private void btnRiegoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRiegoActionPerformed
+        if (btnRiego.isSelected()) {
+            btnRiego.setText("OFF");
+            arduino.enviarDatos("1");
+        } else {
+            arduino.enviarDatos("2");
+            btnRiego.setText("ON");
+        }
+    }//GEN-LAST:event_btnRiegoActionPerformed
 
     @Override
     protected void finalize() throws Throwable {
@@ -234,6 +264,7 @@ public class PrincipalUsuario extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDRiegos;
     private javax.swing.JButton btnLista;
+    private javax.swing.JToggleButton btnRiego;
     private javax.swing.JDesktopPane escritorio;
     private javax.swing.JButton salir;
     // End of variables declaration//GEN-END:variables
