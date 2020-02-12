@@ -6,41 +6,41 @@
 package Modelo;
 
 import java.io.Serializable;
-import java.util.Collection;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author Ricardo
+ * @author vinic
  */
 @Entity
 @Table(name = "persona")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Persona.findAll", query = "SELECT p FROM Persona p")
-    , @NamedQuery(name = "Persona.findByIdPersona", query = "SELECT p FROM Persona p WHERE p.idPersona = :idPersona")
-    , @NamedQuery(name = "Persona.findByCedula", query = "SELECT p FROM Persona p WHERE p.cedula = :cedula")
-    , @NamedQuery(name = "Persona.findByNombre", query = "SELECT p FROM Persona p WHERE p.nombre = :nombre")
-    , @NamedQuery(name = "Persona.findByApellido", query = "SELECT p FROM Persona p WHERE p.apellido = :apellido")
-    , @NamedQuery(name = "Persona.findByDepartameto", query = "SELECT p FROM Persona p WHERE p.departameto = :departameto")
-    , @NamedQuery(name = "Persona.findByPeso", query = "SELECT p FROM Persona p WHERE p.peso = :peso")
-    , @NamedQuery(name = "Persona.findByCelular", query = "SELECT p FROM Persona p WHERE p.celular = :celular")
-    , @NamedQuery(name = "Persona.findByRol", query = "SELECT p FROM Persona p WHERE p.rol = :rol")
-    , @NamedQuery(name = "Persona.findByContracenia", query = "SELECT p FROM Persona p WHERE p.contracenia = :contracenia")})
+    @NamedQuery(name = "Persona.findAll", query = "SELECT p FROM Persona p"),
+    @NamedQuery(name = "Persona.findByIdPersona", query = "SELECT p FROM Persona p WHERE p.idPersona = :idPersona"),
+    @NamedQuery(name = "Persona.findByCedula", query = "SELECT p FROM Persona p WHERE p.cedula = :cedula"),
+    @NamedQuery(name = "Persona.findByNombre", query = "SELECT p FROM Persona p WHERE p.nombre = :nombre"),
+    @NamedQuery(name = "Persona.findByApellido", query = "SELECT p FROM Persona p WHERE p.apellido = :apellido"),
+    @NamedQuery(name = "Persona.findByDepartameto", query = "SELECT p FROM Persona p WHERE p.departameto = :departameto"),
+    @NamedQuery(name = "Persona.findByPeso", query = "SELECT p FROM Persona p WHERE p.peso = :peso"),
+    @NamedQuery(name = "Persona.findByCelular", query = "SELECT p FROM Persona p WHERE p.celular = :celular"),
+    @NamedQuery(name = "Persona.findByRol", query = "SELECT p FROM Persona p WHERE p.rol = :rol"),
+    @NamedQuery(name = "Persona.findByContracenia", query = "SELECT p FROM Persona p WHERE p.contracenia = :contracenia"),
+    @NamedQuery(name = "Persona.findByCorreo", query = "SELECT p FROM Persona p WHERE p.correo = :correo"),
+    @NamedQuery(name = "Persona.findByCambiar", query = "SELECT p FROM Persona p WHERE p.cambiar = :cambiar")})
 public class Persona implements Serializable {
-
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "idPersona")
     private Integer idPersona;
@@ -61,13 +61,17 @@ public class Persona implements Serializable {
     private String rol;
     @Column(name = "contracenia")
     private String contracenia;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "persona")
-    private Collection<Riego> riegoCollection;
+    @Basic(optional = false)
+    @Column(name = "correo")
+    private String correo;
+    @Basic(optional = false)
+    @Column(name = "cambiar")
+    private boolean cambiar;
 
     public Persona() {
     }
 
-    public Persona(Integer idPersona, String cedula, String nombre, String apellido, String departameto, Float peso, String celular, String rol, String contracenia) {
+    public Persona(Integer idPersona, String cedula, String nombre, String apellido, String departameto, Float peso, String celular, String rol, String contracenia, String correo, boolean cambiar) {
         this.idPersona = idPersona;
         this.cedula = cedula;
         this.nombre = nombre;
@@ -77,10 +81,19 @@ public class Persona implements Serializable {
         this.celular = celular;
         this.rol = rol;
         this.contracenia = contracenia;
+        this.correo = correo;
+        this.cambiar = cambiar;
     }
     
+
     public Persona(Integer idPersona) {
         this.idPersona = idPersona;
+    }
+
+    public Persona(Integer idPersona, String correo, boolean cambiar) {
+        this.idPersona = idPersona;
+        this.correo = correo;
+        this.cambiar = cambiar;
     }
 
     public Integer getIdPersona() {
@@ -155,13 +168,20 @@ public class Persona implements Serializable {
         this.contracenia = contracenia;
     }
 
-    @XmlTransient
-    public Collection<Riego> getRiegoCollection() {
-        return riegoCollection;
+    public String getCorreo() {
+        return correo;
     }
 
-    public void setRiegoCollection(Collection<Riego> riegoCollection) {
-        this.riegoCollection = riegoCollection;
+    public void setCorreo(String correo) {
+        this.correo = correo;
+    }
+
+    public boolean getCambiar() {
+        return cambiar;
+    }
+
+    public void setCambiar(boolean cambiar) {
+        this.cambiar = cambiar;
     }
 
     @Override

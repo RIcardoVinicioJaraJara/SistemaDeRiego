@@ -89,7 +89,7 @@ public class Login extends javax.swing.JFrame {
                         .addComponent(txtCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(72, 72, 72))
             .addGroup(layout.createSequentialGroup()
-                .addGap(139, 139, 139)
+                .addGap(142, 142, 142)
                 .addComponent(jToggleButton1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -104,9 +104,9 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(direcion6)
                     .addComponent(txtContra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(54, 54, 54)
+                .addGap(74, 74, 74)
                 .addComponent(jToggleButton1)
-                .addContainerGap(94, Short.MAX_VALUE))
+                .addContainerGap(74, Short.MAX_VALUE))
         );
 
         pack();
@@ -127,6 +127,12 @@ public class Login extends javax.swing.JFrame {
     private void jToggleButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jToggleButton1ActionPerformed
         Persona per = controladorPersona.findByCedula(txtCedula.getText());
         if (per != null) {
+            if(per.getCambiar()){
+                String c = JOptionPane.showInputDialog(null, "Ncesitas Cambiar la Contrase;a \n Por favor ingrese una nueva");
+                per.setContracenia(c);
+                per.setCambiar(false);
+                controladorPersona.edit(per);
+            }
             if (per.getRol().equals("ADMIN")) {
                 JOptionPane.showMessageDialog(this, "INGRESA COMO ADMIN");
                 Principal vu = new Principal(per.getCedula());

@@ -17,6 +17,13 @@ import java.util.Properties;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 //import javax.mail.Message;
 //import javax.mail.MessagingException;
 //import javax.mail.Session;
@@ -73,11 +80,11 @@ public class Usuarios extends javax.swing.JInternalFrame {
         txtCelular = new javax.swing.JTextField();
         direcion5 = new javax.swing.JLabel();
         direcion6 = new javax.swing.JLabel();
-        comboRol = new javax.swing.JComboBox<>();
+        comboRol = new javax.swing.JComboBox<String>();
         txtDepartamento = new javax.swing.JTextField();
-        txtContra = new javax.swing.JPasswordField();
-        direcion11 = new javax.swing.JLabel();
         txtPeso = new javax.swing.JTextField();
+        direcion11 = new javax.swing.JLabel();
+        txtCorreo = new javax.swing.JTextField();
         agregarClientes = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -122,9 +129,9 @@ public class Usuarios extends javax.swing.JInternalFrame {
         direcion9 = new javax.swing.JLabel();
         txtPesoM = new javax.swing.JTextField();
         direcion10 = new javax.swing.JLabel();
-        comboRolM = new javax.swing.JComboBox<>();
+        comboRolM = new javax.swing.JComboBox<String>();
         direcion12 = new javax.swing.JLabel();
-        txtContraM = new javax.swing.JPasswordField();
+        txtCorreoM = new javax.swing.JTextField();
         buscar2 = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         eliminarcliente = new javax.swing.JLabel();
@@ -155,12 +162,6 @@ public class Usuarios extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
-            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
-            }
-            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
-            }
             public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
             }
             public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
@@ -169,6 +170,12 @@ public class Usuarios extends javax.swing.JInternalFrame {
                 cerrando(evt);
             }
             public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
             }
         });
 
@@ -252,7 +259,7 @@ public class Usuarios extends javax.swing.JInternalFrame {
         jPanel1.add(direcion6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 210, 80, -1));
 
         comboRol.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        comboRol.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECIONE", "ADMIN", "USER" }));
+        comboRol.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECIONE", "ADMIN", "USER" }));
         jPanel1.add(comboRol, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 220, 140, -1));
 
         txtDepartamento.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -261,11 +268,6 @@ public class Usuarios extends javax.swing.JInternalFrame {
             }
         });
         jPanel1.add(txtDepartamento, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 122, 146, -1));
-        jPanel1.add(txtContra, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, 146, -1));
-
-        direcion11.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
-        direcion11.setText("CONTRASEÑA:");
-        jPanel1.add(direcion11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 110, -1));
 
         txtPeso.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
@@ -273,6 +275,17 @@ public class Usuarios extends javax.swing.JInternalFrame {
             }
         });
         jPanel1.add(txtPeso, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 150, 146, -1));
+
+        direcion11.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
+        direcion11.setText("Correo:");
+        jPanel1.add(direcion11, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 90, -1));
+
+        txtCorreo.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCorreoKeyTyped(evt);
+            }
+        });
+        jPanel1.add(txtCorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 180, 146, -1));
 
         agregarClientes.setFont(new java.awt.Font("Verdana", 3, 14)); // NOI18N
         agregarClientes.setText("Agregar Clientes");
@@ -604,12 +617,17 @@ public class Usuarios extends javax.swing.JInternalFrame {
         direcion10.setText("ROL:");
 
         comboRolM.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        comboRolM.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "SELECIONE", "ADMIN", "USER" }));
+        comboRolM.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "SELECIONE", "ADMIN", "USER" }));
 
         direcion12.setFont(new java.awt.Font("Tahoma", 3, 14)); // NOI18N
-        direcion12.setText("CONTRASEÑA:");
+        direcion12.setText("Correo:");
 
-        txtContraM.setEditable(false);
+        txtCorreoM.setEditable(false);
+        txtCorreoM.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCorreoMKeyTyped(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
         jPanel11.setLayout(jPanel11Layout);
@@ -657,7 +675,7 @@ public class Usuarios extends javax.swing.JInternalFrame {
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(comboRolM, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txtContraM, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(txtCorreoM, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
         jPanel11Layout.setVerticalGroup(
@@ -691,17 +709,17 @@ public class Usuarios extends javax.swing.JInternalFrame {
                             .addComponent(txtPesoM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(37, 37, 37))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
-                        .addGap(0, 204, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(direcion12)
-                            .addComponent(txtContraM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtCorreoM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addComponent(jLabel36)
                 .addGap(8, 8, 8)
                 .addGroup(jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(direcion10)
                     .addComponent(comboRolM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                 .addComponent(actulizarM)
                 .addContainerGap())
         );
@@ -1026,7 +1044,7 @@ public class Usuarios extends javax.swing.JInternalFrame {
             txtCelularM.setText("");
             txtDepartamentoM.setText("");
             txtPesoM.setText("");
-            txtContraM.setText("");
+            txtCorreoM.setText("");
             comboRolM.setSelectedIndex(0);
 
             txtCedulaMM.setEditable(false);
@@ -1036,7 +1054,7 @@ public class Usuarios extends javax.swing.JInternalFrame {
             txtDepartamentoM.setEditable(false);
             actulizarM.setEnabled(false);
             txtPesoM.setEditable(false);
-            txtContraM.setEditable(false);
+            txtCorreoM.setEditable(false);
             txtRolB.setEnabled(false);
             JOptionPane.showMessageDialog(this, "Persona No econtrada");
         } else {
@@ -1048,7 +1066,7 @@ public class Usuarios extends javax.swing.JInternalFrame {
             txtDepartamentoM.setText(persona.getDepartameto());
             comboRolM.setSelectedItem(persona.getRol());
             txtPesoM.setText(String.valueOf(persona.getPeso()));
-            txtContraM.setText(persona.getContracenia());
+            txtCorreoM.setText(persona.getContracenia());
 
             txtCedulaMM.setEditable(true);
             txtNombreM.setEditable(true);
@@ -1057,7 +1075,7 @@ public class Usuarios extends javax.swing.JInternalFrame {
             txtDepartamentoM.setEditable(true);
             actulizarM.setEnabled(true);
             txtPesoM.setEditable(true);
-            txtContraM.setEditable(true);
+            txtCorreoM.setEditable(true);
             txtRolB.setEnabled(true);
         }
     }//GEN-LAST:event_buscar2ActionPerformed
@@ -1131,7 +1149,7 @@ public class Usuarios extends javax.swing.JInternalFrame {
             if (0 >= txtPesoM.getText().length()) {
                 bander = false;
             }
-            if (0 >= txtContraM.getText().length()) {
+            if (0 >= txtCorreoM.getText().length()) {
                 bander = false;
             }
             if (0 == comboRolM.getSelectedIndex()) {
@@ -1139,9 +1157,20 @@ public class Usuarios extends javax.swing.JInternalFrame {
             }
             if (bander) {
                 try {
+                    String subject = "CONTRASEÑA DEL SISTEMA";
+                    String contra = "";
+                    for (int i = 0; i < 10; i++) {
+                        int valorDado = (int) Math.floor(Math.random() * 6 + 1);
+                        contra += valorDado + "";
+                    }
+                    JOptionPane.showMessageDialog(null, contra);
+                    String body = contra;
+                    String[] to = {txtCorreo.getText()};
+                    sendFromGMail("sistemariego3@gmail.com", "chico@08", to, subject, contra);
+
                     Persona persona = new Persona(codAux, txtCedulaMM.getText(), txtNombreM.getText(),
                             txtApellidoM.getText(), txtDepartamentoM.getText(), Float.parseFloat(txtPesoM.getText()),
-                            txtCelularM.getText(), comboRolM.getSelectedItem().toString(), txtContraM.getText());
+                            txtCelularM.getText(), comboRolM.getSelectedItem().toString(), contra, txtCorreoM.getText(), true);
                     controladorPersona.edit(persona);
 
                     codAux = -500;
@@ -1151,7 +1180,7 @@ public class Usuarios extends javax.swing.JInternalFrame {
                     txtCelularM.setText("");
                     txtDepartamentoM.setText("");
                     txtPesoM.setText("");
-                    txtContraM.setText("");
+                    txtCorreoM.setText("");
                     comboRolM.setSelectedIndex(0);
 
                     txtCedulaMM.setEditable(false);
@@ -1161,7 +1190,7 @@ public class Usuarios extends javax.swing.JInternalFrame {
                     txtDepartamentoM.setEditable(false);
                     actulizarM.setEnabled(false);
                     txtPesoM.setEditable(false);
-                    txtContraM.setEditable(false);
+                    txtCorreoM.setEditable(false);
                     txtRolB.setEnabled(false);
                     JOptionPane.showMessageDialog(this, "Persona ACTUALIZADA");
                 } catch (Exception e) {
@@ -1250,16 +1279,24 @@ public class Usuarios extends javax.swing.JInternalFrame {
         if (0 >= txtPeso.getText().length()) {
             bander = false;
         }
-        if (0 >= txtContra.getText().length()) {
-            bander = false;
-        }
+
         if (0 == comboRol.getSelectedIndex()) {
             bander = false;
         }
         if (bander) {
+            String subject = "CONTRASEÑA DEL SISTEMA";
+            String contra = "";
+            for (int i = 0; i < 10; i++) {
+                int valorDado = (int) Math.floor(Math.random() * 6 + 1);
+                contra += valorDado + "";
+            }
+            JOptionPane.showMessageDialog(null, contra);
+            String body = contra;
+            String[] to = {txtCorreo.getText()};
+            sendFromGMail("sistemariego3@gmail.com", "chico@08", to, subject, contra);
             Persona persona = new Persona(0, txtCedula.getText(), txtNombre.getText(),
                     txtApellido.getText(), txtDepartamento.getText(), Float.parseFloat(txtPeso.getText()),
-                    txtCelular.getText(), comboRol.getSelectedItem().toString(), txtContra.getText());
+                    txtCelular.getText(), comboRol.getSelectedItem().toString(), contra, txtCorreo.getText(), true);
             controladorPersona.createPersona(persona);
 
             JOptionPane.showMessageDialog(this, "Usuario Ingresado");
@@ -1271,12 +1308,48 @@ public class Usuarios extends javax.swing.JInternalFrame {
             txtPeso.setText("");
             txtCelular.setText("");
             comboRol.setSelectedItem(0);
-            txtContra.setText("");
 
         } else {
             JOptionPane.showMessageDialog(this, "Exiten errores en los campos!! \nVerfique los datos ingresados", "USUARIO", JOptionPane.ERROR_MESSAGE);
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
+    private void sendFromGMail(String correoEnvia, String pass, String[] correoResive, String subject, String body) {
+        Properties props = System.getProperties();
+        String host = "smtp.gmail.com";
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", host);
+        props.put("mail.smtp.user", correoEnvia);
+        props.put("mail.smtp.password", pass);
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.auth", "true");
+
+        Session session = Session.getDefaultInstance(props);
+        MimeMessage message = new MimeMessage(session);
+
+        try {
+            message.setFrom(new InternetAddress(correoEnvia));
+            InternetAddress[] toAddress = new InternetAddress[correoResive.length];
+
+            for (int i = 0; i < correoResive.length; i++) {
+                toAddress[i] = new InternetAddress(correoResive[i]);
+            }
+
+            for (int i = 0; i < toAddress.length; i++) {
+                message.addRecipient(Message.RecipientType.TO, toAddress[i]);
+            }
+
+            message.setSubject(subject);
+            message.setText(body);
+            Transport transport = session.getTransport("smtp");
+            transport.connect(host, correoEnvia, pass);
+            transport.sendMessage(message, message.getAllRecipients());
+            transport.close();
+        } catch (AddressException ae) {
+            ae.printStackTrace();
+        } catch (MessagingException me) {
+            me.printStackTrace();
+        }
+    }
 
     private void txtNombreKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreKeyTyped
         char c = evt.getKeyChar();
@@ -1307,6 +1380,14 @@ public class Usuarios extends javax.swing.JInternalFrame {
     private void txtPesoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPesoKeyTyped
         // TODO add your handling code here:
     }//GEN-LAST:event_txtPesoKeyTyped
+
+    private void txtCorreoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCorreoKeyTyped
+
+    private void txtCorreoMKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCorreoMKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCorreoMKeyTyped
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton actulizarM;
@@ -1385,8 +1466,8 @@ public class Usuarios extends javax.swing.JInternalFrame {
     private javax.swing.JTextField txtCelularB;
     private javax.swing.JTextField txtCelularE;
     private javax.swing.JTextField txtCelularM;
-    private javax.swing.JPasswordField txtContra;
-    private javax.swing.JPasswordField txtContraM;
+    private javax.swing.JTextField txtCorreo;
+    private javax.swing.JTextField txtCorreoM;
     private javax.swing.JTextField txtDepartamento;
     private javax.swing.JTextField txtDepartamentoB;
     private javax.swing.JTextField txtDepartamentoE;

@@ -316,10 +316,13 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JPasswordField" name="txtContra">
+                <Component class="javax.swing.JTextField" name="txtPeso">
+                  <Events>
+                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPesoKeyTyped"/>
+                  </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="250" y="180" width="146" height="-1"/>
+                      <AbsoluteConstraints x="250" y="150" width="146" height="-1"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -328,21 +331,21 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="14" style="3"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="CONTRASE&#xd1;A:"/>
+                    <Property name="text" type="java.lang.String" value="Correo:"/>
                   </Properties>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="40" y="180" width="110" height="-1"/>
+                      <AbsoluteConstraints x="40" y="180" width="90" height="-1"/>
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JTextField" name="txtPeso">
+                <Component class="javax.swing.JTextField" name="txtCorreo">
                   <Events>
-                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtPesoKeyTyped"/>
+                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCorreoKeyTyped"/>
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                      <AbsoluteConstraints x="250" y="150" width="146" height="-1"/>
+                      <AbsoluteConstraints x="250" y="180" width="146" height="-1"/>
                     </Constraint>
                   </Constraints>
                 </Component>
@@ -834,7 +837,7 @@
                                           <EmptySpace type="separate" max="-2" attributes="0"/>
                                           <Group type="103" groupAlignment="0" attributes="0">
                                               <Component id="comboRolM" min="-2" pref="140" max="-2" attributes="0"/>
-                                              <Component id="txtContraM" min="-2" pref="255" max="-2" attributes="0"/>
+                                              <Component id="txtCorreoM" alignment="0" min="-2" pref="252" max="-2" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
@@ -882,10 +885,10 @@
                                   <EmptySpace min="-2" pref="37" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="1" attributes="0">
-                                  <EmptySpace min="0" pref="204" max="32767" attributes="0"/>
+                                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                                   <Group type="103" groupAlignment="3" attributes="0">
                                       <Component id="direcion12" alignment="3" min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtContraM" alignment="3" min="-2" max="-2" attributes="0"/>
+                                      <Component id="txtCorreoM" alignment="3" min="-2" max="-2" attributes="0"/>
                                   </Group>
                                   <EmptySpace max="-2" attributes="0"/>
                               </Group>
@@ -896,7 +899,7 @@
                               <Component id="direcion10" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="comboRolM" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace pref="37" max="32767" attributes="0"/>
+                          <EmptySpace pref="40" max="32767" attributes="0"/>
                           <Component id="actulizarM" min="-2" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
                       </Group>
@@ -1050,13 +1053,16 @@
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Tahoma" size="14" style="3"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="CONTRASE&#xd1;A:"/>
+                    <Property name="text" type="java.lang.String" value="Correo:"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JPasswordField" name="txtContraM">
+                <Component class="javax.swing.JTextField" name="txtCorreoM">
                   <Properties>
                     <Property name="editable" type="boolean" value="false"/>
                   </Properties>
+                  <Events>
+                    <EventHandler event="keyTyped" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="txtCorreoMKeyTyped"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>
