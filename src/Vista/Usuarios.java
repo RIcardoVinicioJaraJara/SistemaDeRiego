@@ -1163,7 +1163,6 @@ public class Usuarios extends javax.swing.JInternalFrame {
                         int valorDado = (int) Math.floor(Math.random() * 6 + 1);
                         contra += valorDado + "";
                     }
-                    JOptionPane.showMessageDialog(null, contra);
                     String body = contra;
                     String[] to = {txtCorreo.getText()};
                     sendFromGMail("sistemariego3@gmail.com", "chico@08", to, subject, contra);
@@ -1290,7 +1289,6 @@ public class Usuarios extends javax.swing.JInternalFrame {
                 int valorDado = (int) Math.floor(Math.random() * 6 + 1);
                 contra += valorDado + "";
             }
-            JOptionPane.showMessageDialog(null, contra);
             String body = contra;
             String[] to = {txtCorreo.getText()};
             sendFromGMail("sistemariego3@gmail.com", "chico@08", to, subject, contra);
