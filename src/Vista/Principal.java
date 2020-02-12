@@ -197,6 +197,7 @@ public class Principal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRiegoActionPerformed
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
+        controladorArduino.desconetar();
         Login vu = new Login();
         String[] args = null;
         vu.main(args);

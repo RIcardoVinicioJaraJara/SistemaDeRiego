@@ -44,7 +44,7 @@ public final class ControladorArduino extends Thread {
                     riego = new Riego(0, temperatura[1], humedad[1], regadera[1], lluvia[1], fecha, hora, persona);
                     if (cont >= 10) {
                         controladorRiego.createRiego(riego);
-                        System.out.println("ingresado0000000000000000000oooooo");
+                        System.out.println("ingresado >>>>>>>>>>>>>>>>>>>");
                         cont = 0;
                     }
 
